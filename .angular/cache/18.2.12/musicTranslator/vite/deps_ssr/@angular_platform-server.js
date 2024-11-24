@@ -1,14 +1,5 @@
 import { createRequire } from 'module';const require = createRequire(import.meta.url);
 import {
-  BrowserDomAdapter,
-  BrowserModule,
-  DomRendererFactory2,
-  EVENT_MANAGER_PLUGINS,
-  EventManagerPlugin,
-  HTTP_ROOT_INTERCEPTOR_FNS,
-  HttpClientModule
-} from "./chunk-XNPOLTAO.js";
-import {
   AnimationDriver,
   AnimationEngine,
   AnimationRendererFactory,
@@ -16,7 +7,16 @@ import {
   NoopAnimationDriver,
   WebAnimationsDriver,
   WebAnimationsStyleNormalizer
-} from "./chunk-6UAMCTBN.js";
+} from "./chunk-THJQOKGC.js";
+import {
+  BrowserDomAdapter,
+  BrowserModule,
+  DomRendererFactory2,
+  EVENT_MANAGER_PLUGINS,
+  EventManagerPlugin,
+  HTTP_ROOT_INTERCEPTOR_FNS,
+  HttpClientModule
+} from "./chunk-ZLZWFAXT.js";
 import {
   DOCUMENT,
   NullViewportScroller,
@@ -26,7 +26,7 @@ import {
   XhrFactory,
   getDOM,
   setRootDomAdapter
-} from "./chunk-XMQ2GTA6.js";
+} from "./chunk-LWLAASAY.js";
 import {
   ALLOW_MULTIPLE_PLATFORMS,
   ANIMATION_MODULE_TYPE,
@@ -63,13 +63,13 @@ import {
   ɵɵdefineInjector,
   ɵɵdefineNgModule,
   ɵɵinject
-} from "./chunk-44JQ5FZC.js";
+} from "./chunk-QSDDJS4D.js";
 import {
   __async,
   __toESM
 } from "./chunk-NQ4HTGF6.js";
 
-// node_modules/@angular/platform-browser/fesm2022/animations.mjs
+// ../../node_modules/@angular/platform-browser/fesm2022/animations.mjs
 var InjectableAnimationEngine = class _InjectableAnimationEngine extends AnimationEngine {
   // The `ApplicationRef` is injected here explicitly to force the dependency ordering.
   // Since the `ApplicationRef` should be created earlier before the `AnimationEngine`, they
@@ -220,7 +220,7 @@ function provideNoopAnimations() {
   return [...BROWSER_NOOP_ANIMATIONS_PROVIDERS];
 }
 
-// node_modules/@angular/platform-server/fesm2022/platform-server.mjs
+// ../../node_modules/@angular/platform-server/fesm2022/platform-server.mjs
 var import_rxjs = __toESM(require_cjs(), 1);
 var __getOwnPropNames = Object.getOwnPropertyNames;
 var __commonJS = (cb, mod) => function __require() {
@@ -16558,7 +16558,7 @@ var ServerXhr = class _ServerXhr {
       if (!this.xhrImpl) {
         const {
           default: xhr
-        } = yield import("./xhr2-ISERFGGE.js");
+        } = yield import("./xhr2-V6AUKWKL.js");
         this.xhrImpl = xhr;
       }
     });
