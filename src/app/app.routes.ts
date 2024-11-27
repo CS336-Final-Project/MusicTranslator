@@ -4,14 +4,18 @@ import { HomeComponent } from './home/home.component';
 import { SearchComponent } from './search/search.component';
 import { ListenComponent } from './listen/listen.component';
 import { ProfileComponent } from './profile/profile.component';
+import { LoginComponent } from './login/login.component';
+import { AuthGuard } from './auth.guard';
 
 export const routes: Routes = [
-    {path: '', component: HomeComponent},
-    {path: 'search', component: SearchComponent},
-    {path: 'listen', component: ListenComponent},
-    {path: 'profile', component: ProfileComponent},
+    {path: 'login', component: LoginComponent},
+    
+    {path: '', component: HomeComponent, canActivate: [AuthGuard]},
+    {path: 'search', component: SearchComponent, canActivate: [AuthGuard]},
+    {path: 'listen', component: ListenComponent, canActivate: [AuthGuard]},
+    {path: 'profile', component: ProfileComponent, canActivate: [AuthGuard]},
 
-    {path: '**', redirectTo:''},
+    {path: '**', redirectTo:'login'},
 ];
 
 @NgModule({
