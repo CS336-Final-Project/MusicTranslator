@@ -1,1 +1,17 @@
-<router-outlet></router-outlet>
+<mat-sidenav-container class="sidenav-container">
+    <mat-sidenav #sidenav mode="side" opened>
+        <mat-toolbar color="primary">Menu</mat-toolbar>
+        <mat-nav-list>
+            <a mat-list-item routerLink="/">Home</a>
+            <a mat-list-item routerLink="/search">Search</a>
+            <a mat-list-item routerLink="/listen">Listen</a>
+            <a mat-list-item routerLink="/profile">Profile</a>
+        </mat-nav-list>
+    </mat-sidenav>
+
+    <mat-sidenav-content>
+        <section>
+            <router-outlet></router-outlet>
+        </section>
+    </mat-sidenav-content>
+</mat-sidenav-container>

@@ -1,14 +1,14 @@
 import { createRequire } from 'module';const require = createRequire(import.meta.url);
 import {
   MatCommonModule
-} from "./chunk-XJTCBRHC.js";
+} from "./chunk-DIJ7U4II.js";
 import {
   DomSanitizer,
   HttpClient
-} from "./chunk-ZLZWFAXT.js";
+} from "./chunk-GGJP2QIL.js";
 import {
   DOCUMENT
-} from "./chunk-LWLAASAY.js";
+} from "./chunk-AWWGSX4I.js";
 import {
   Attribute,
   ChangeDetectionStrategy,
@@ -43,12 +43,12 @@ import {
   ɵɵinjectAttribute,
   ɵɵprojection,
   ɵɵprojectionDef
-} from "./chunk-QSDDJS4D.js";
+} from "./chunk-44JQ5FZC.js";
 import {
   __toESM
 } from "./chunk-NQ4HTGF6.js";
 
-// ../../node_modules/@angular/material/fesm2022/icon.mjs
+// node_modules/@angular/material/fesm2022/icon.mjs
 var import_rxjs = __toESM(require_cjs(), 1);
 var import_operators = __toESM(require_operators(), 1);
 var _c0 = ["*"];
