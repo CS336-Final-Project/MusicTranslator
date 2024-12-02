@@ -38,9 +38,23 @@ export class SpotifyService {
     const scopes = [
       'user-read-private',
       'user-read-email',
+      'user-library-read',
+      'user-library-modify',
+      'user-top-read',
+      'user-follow-read',
+      'user-follow-modify',
+
+      'user-read-playback-state',
+      'user-read-currently-playing',
+      'user-modify-playback-state',
+      'user-read-recently-played',
+      'user-read-currently-playing',
+
       'playlist-read-private',
       'playlist-read-collaborative',
-      'user-library-read',
+      'playlist-modify-public',
+      'playlist-modify-private',
+      'ugc-image-upload',
     ].join(' ');
 
     const authUrl = `https://accounts.spotify.com/authorize?response_type=token&client_id=${clientId}&scope=${encodeURIComponent(
@@ -57,7 +71,180 @@ export class SpotifyService {
     const token = localStorage.getItem('spotify_access_token');
     return !!token;
   }
+  /*Album Info*/
+  //Get Album
+  getAlbum(albumId: string, options?: object): Promise<string>{
+    if (!this.isLoggedIn()) {
+      console.warn('User is not logged in. Redirecting to login.');
+      this.getAccessToken();
+      return Promise.reject('User not logged in');
+    }
 
+    return this.spotifyWebApi.getAlbum(albumId, options)
+     .then((response) => {
+        return response.name;
+      })
+      .catch((error) => {
+        console.error('Error fetching album:', error);
+        return Promise.reject('Error fetching album');
+      });
+  }
+  //Get Several Albums
+
+  //Get Album Tracks
+  getAlbumTracks(albumId: string, options?: object): Promise<string[]>{
+    if (!this.isLoggedIn()) {
+      console.warn('User is not logged in. Redirecting to login.');
+      this.getAccessToken();
+      return Promise.reject('User not logged in');
+    }
+
+    return this.spotifyWebApi.getAlbumTracks(albumId, options)
+     .then((response) => {
+        return response.items.map((track) => track.name);
+      })
+     .catch((error) => {
+        console.error('Error fetching album tracks:', error);
+        return Promise.reject('Error fetching album tracks');
+      });
+  }
+
+  //Get User's Saved Albums
+  getUsersSavedAlbums():Promise<Array<string>> 
+  {
+    if (!this.isLoggedIn()) {
+      console.warn('User is not logged in. Redirecting to login.');
+      this.getAccessToken();
+      return Promise.reject('User not logged in');
+    }
+
+    return this.spotifyWebApi.getMySavedAlbums({limit:10})
+    .then((response) => {
+      return response.items.map((item) => item.album.name);
+    })
+    .catch((error) => {
+      console.error('Error fetching saved albums:', error);
+      return Promise.reject('Error fetching saved albums');
+    });
+  }
+
+  addToSavedAlbums(albumIds: string[], options?: object):Promise<void> {
+    if (!this.isLoggedIn()) {
+      console.warn('User is not logged in. Redirecting to login.');
+      this.getAccessToken();
+      return Promise.reject('User not logged in');
+    }
+
+    return this.spotifyWebApi.addToMySavedAlbums(albumIds, options)
+      .then(() => {
+        console.log(`Successfully added one or more albums to the current user's Your Music library: ${albumIds.join(', ')}`);
+      })
+      .catch((error: any) => {
+        console.error('Error adding album to users music library:', error);
+        //this.handleTokenError(error); // Handle token expiration or other issues
+        throw error;
+      });
+  }
+
+  removeFromSavedAlbums(albumIds: string[], options?: object):Promise<void> {
+    if (!this.isLoggedIn()) {
+      console.warn('User is not logged in. Redirecting to login.');
+      this.getAccessToken();
+      return Promise.reject('User not logged in');
+    }
+
+    return this.spotifyWebApi.removeFromMySavedAlbums(albumIds, options)
+      .then(() => {
+        console.log(`Successfully removed one or more albums from the current user's your music library: ${albumIds.join(', ')}`);
+      })
+      .catch((error: any) => {
+        console.error('Error removing one or more albums from users music library:', error);
+        //this.handleTokenError(error); // Handle token expiration or other issues
+        throw error;
+      });
+  }
+
+
+  /*Artist Info*/
+  //Get Artist
+  //Get Several Artists
+  //Get Artist's Albumns
+  //Get Artist's Top Tracks
+  //Get Artist's Related Artists
+
+
+  /*Categories*/
+  //Get Several Browse Categories
+  //Get Single Browse Category
+
+
+  /*Genres*/
+  //Get Available Genre Seeds
+
+  /*Player*/
+
+
+  /*Playlists*/
+
+
+  /*Search*/
+
+
+  /*Tracks*/
+  getUsersSavedTracks(): Promise<string[]>{
+    if (!this.isLoggedIn()) {
+      console.warn('User is not logged in. Redirecting to login.');
+      this.getAccessToken();
+      return Promise.reject('User not logged in');
+    }
+
+    return this.spotifyWebApi.getMySavedTracks()
+     .then((response) => {
+        return response.items.map((item) => item.track.name);
+      })
+     .catch((error) => {
+        console.error('Error fetching saved tracks:', error);
+        return Promise.reject('Error fetching saved tracks');
+      });
+  }
+
+  addToUsersSavedTracks(trackIds: string[], options?: object): Promise<void> {
+    if (!this.isLoggedIn()) {
+      console.warn('User is not logged in. Redirecting to login.');
+      this.getAccessToken();
+      return Promise.reject('User not logged in');
+    }
+  
+    return this.spotifyWebApi.addToMySavedTracks(trackIds, options)
+      .then(() => {
+        console.log(`Tracks successfully added to saved tracks: ${trackIds.join(', ')}`);
+      })
+      .catch((error: any) => {
+        console.error('Error adding tracks to saved tracks:', error);
+        //this.handleTokenError(error); // Handle token expiration or other issues
+        throw error;
+      });
+  }
+
+  removeFromUsersSavedTracks(trackIds: string[], options?: object): Promise<void> {
+    if (!this.isLoggedIn()) {
+      console.warn('User is not logged in. Redirecting to login.');
+      this.getAccessToken();
+      return Promise.reject('User not logged in');
+    }
+  
+    return this.spotifyWebApi.addToMySavedTracks(trackIds, options)
+      .then(() => {
+        console.log(`Tracks successfully removed from saved tracks: ${trackIds.join(', ')}`);
+      })
+      .catch((error: any) => {
+        console.error('Error removing tracks from saved tracks:', error);
+        //this.handleTokenError(error); // Handle token expiration or other issues
+        throw error;
+      });
+  }
+
+  /*User Info*/
   getUserName(): Promise<string> {
     if (!this.isLoggedIn()) {
       console.warn('User is not logged in. Redirecting to login.');
@@ -77,6 +264,51 @@ export class SpotifyService {
           this.getAccessToken();
         }
         return '';
+      });
+  }
+
+  getUsersTopArtists(): Promise<string[]> {
+    if (!this.isLoggedIn()) {
+      console.warn('User is not logged in. Redirecting to login.');
+      this.getAccessToken();
+      return Promise.resolve([]);
+    }
+
+    return this.spotifyWebApi.getMyTopArtists({ limit: 10 })
+     .then((response) => response.items.map((item) => item.name))
+     .catch((error) => {
+        console.error('Error fetching user top artists:', error);
+        return [];
+      });
+  }
+
+  getUsersTopTracks(): Promise<string[]> {
+    if (!this.isLoggedIn()) {
+      console.warn('User is not logged in. Redirecting to login.');
+      this.getAccessToken();
+      return Promise.resolve([]);
+    }
+
+    return this.spotifyWebApi.getMyTopTracks({ limit: 10 })
+     .then((response) => response.items.map((item) => item.name))
+     .catch((error) => {
+        console.error('Error fetching user top tracks:', error);
+        return [];
+      });
+  }
+
+  getUsersRecentlyPlayedTracks(): Promise<string[]>{
+    if (!this.isLoggedIn()) {
+      console.warn('User is not logged in. Redirecting to login.');
+      this.getAccessToken();
+      return Promise.resolve([]);
+    }
+
+    return this.spotifyWebApi.getMyRecentlyPlayedTracks()
+     .then((response) => response.items.map((item) => item.track.name))
+     .catch((error) => {
+        console.error('Error fetching user recently played tracks:', error);
+        return [];
       });
   }
 }

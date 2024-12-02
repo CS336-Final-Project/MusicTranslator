@@ -1,80 +1,80 @@
 {
-  "hash": "fd6a7823",
-  "configHash": "736b991f",
+  "hash": "82a8c566",
+  "configHash": "30ab887d",
   "lockfileHash": "7e113db4",
-  "browserHash": "058a9fb3",
+  "browserHash": "c6583d2b",
   "optimized": {
     "@angular/common": {
       "src": "../../../../../../node_modules/@angular/common/fesm2022/common.mjs",
       "file": "@angular_common.js",
-      "fileHash": "3f0903ee",
+      "fileHash": "02673df8",
       "needsInterop": false
     },
     "@angular/core": {
       "src": "../../../../../../node_modules/@angular/core/fesm2022/core.mjs",
       "file": "@angular_core.js",
-      "fileHash": "2223db2c",
+      "fileHash": "7de71781",
+      "needsInterop": false
+    },
+    "@angular/material/card": {
+      "src": "../../../../../../node_modules/@angular/material/fesm2022/card.mjs",
+      "file": "@angular_material_card.js",
+      "fileHash": "6524b026",
       "needsInterop": false
     },
     "@angular/material/icon": {
       "src": "../../../../../../node_modules/@angular/material/fesm2022/icon.mjs",
       "file": "@angular_material_icon.js",
-      "fileHash": "d9f1adca",
+      "fileHash": "e1a6f7ca",
       "needsInterop": false
     },
     "@angular/material/list": {
       "src": "../../../../../../node_modules/@angular/material/fesm2022/list.mjs",
       "file": "@angular_material_list.js",
-      "fileHash": "c9d7e824",
+      "fileHash": "2a20208f",
       "needsInterop": false
     },
     "@angular/material/sidenav": {
       "src": "../../../../../../node_modules/@angular/material/fesm2022/sidenav.mjs",
       "file": "@angular_material_sidenav.js",
-      "fileHash": "51d327a0",
+      "fileHash": "fd54310f",
       "needsInterop": false
     },
     "@angular/material/toolbar": {
       "src": "../../../../../../node_modules/@angular/material/fesm2022/toolbar.mjs",
       "file": "@angular_material_toolbar.js",
-      "fileHash": "8b8a4fa5",
+      "fileHash": "7ebedd3a",
       "needsInterop": false
     },
     "@angular/platform-browser": {
       "src": "../../../../../../node_modules/@angular/platform-browser/fesm2022/platform-browser.mjs",
       "file": "@angular_platform-browser.js",
-      "fileHash": "4e0c4f14",
+      "fileHash": "337b82b9",
       "needsInterop": false
     },
     "@angular/platform-browser/animations/async": {
       "src": "../../../../../../node_modules/@angular/platform-browser/fesm2022/animations/async.mjs",
       "file": "@angular_platform-browser_animations_async.js",
-      "fileHash": "20ac9339",
+      "fileHash": "90431b52",
       "needsInterop": false
     },
     "@angular/platform-server": {
       "src": "../../../../../../node_modules/@angular/platform-server/fesm2022/platform-server.mjs",
       "file": "@angular_platform-server.js",
-      "fileHash": "ab6a1e4a",
+      "fileHash": "8750679c",
       "needsInterop": false
     },
     "@angular/router": {
       "src": "../../../../../../node_modules/@angular/router/fesm2022/router.mjs",
       "file": "@angular_router.js",
-      "fileHash": "e305b233",
+      "fileHash": "e4df7730",
       "needsInterop": false
     },
     "spotify-web-api-js": {
       "src": "../../../../../../node_modules/spotify-web-api-js/src/spotify-web-api.js",
       "file": "spotify-web-api-js.js",
-      "fileHash": "58ba7142",
+      "fileHash": "dfa2a78a",
       "needsInterop": true
-    },
-    "tslib": {
-      "src": "../../../../../../node_modules/tslib/tslib.es6.mjs",
-      "file": "tslib.js",
-      "fileHash": "1fa3a424",
-      "needsInterop": false
     }
   },
   "chunks": {
@@ -84,20 +84,20 @@
     "chunk-77B4TPNL": {
       "file": "chunk-77B4TPNL.js"
     },
+    "chunk-OPE7NNTO": {
+      "file": "chunk-OPE7NNTO.js"
+    },
     "xhr2-ISERFGGE": {
       "file": "xhr2-ISERFGGE.js"
     },
-    "chunk-OPE7NNTO": {
-      "file": "chunk-OPE7NNTO.js"
+    "chunk-GGJP2QIL": {
+      "file": "chunk-GGJP2QIL.js"
     },
     "chunk-LHU7XGY3": {
       "file": "chunk-LHU7XGY3.js"
     },
     "chunk-DIJ7U4II": {
       "file": "chunk-DIJ7U4II.js"
-    },
-    "chunk-GGJP2QIL": {
-      "file": "chunk-GGJP2QIL.js"
     },
     "chunk-AWWGSX4I": {
       "file": "chunk-AWWGSX4I.js"
