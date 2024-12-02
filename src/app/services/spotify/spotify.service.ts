@@ -274,7 +274,7 @@ export class SpotifyService {
       return Promise.resolve([]);
     }
 
-    return this.spotifyWebApi.getMyTopArtists({ limit: 10 })
+    return this.spotifyWebApi.getMyTopArtists({ limit: 5 })
      .then((response) => response.items.map((item) => item.name))
      .catch((error) => {
         console.error('Error fetching user top artists:', error);
@@ -289,7 +289,7 @@ export class SpotifyService {
       return Promise.resolve([]);
     }
 
-    return this.spotifyWebApi.getMyTopTracks({ limit: 10 })
+    return this.spotifyWebApi.getMyTopTracks({ limit: 5 })
      .then((response) => response.items.map((item) => item.name))
      .catch((error) => {
         console.error('Error fetching user top tracks:', error);
