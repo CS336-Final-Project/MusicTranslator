@@ -1,3 +1,11 @@
-a {
-    margin-left: 15px;
+.sidenav-container {
+    height: 100vh;
+}
+
+mat-sidenav {
+    width: 200px;
+}
+
+mat-sidenav-content {
+    padding: 16px;
 }

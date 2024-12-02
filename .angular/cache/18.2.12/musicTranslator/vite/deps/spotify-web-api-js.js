@@ -2,9 +2,9 @@ import {
   __commonJS
 } from "./chunk-3OV72XIM.js";
 
-// ../../node_modules/spotify-web-api-js/src/spotify-web-api.js
+// node_modules/spotify-web-api-js/src/spotify-web-api.js
 var require_spotify_web_api = __commonJS({
-  "../../node_modules/spotify-web-api-js/src/spotify-web-api.js"(exports, module) {
+  "node_modules/spotify-web-api-js/src/spotify-web-api.js"(exports, module) {
     var SpotifyWebApi = function() {
       var _baseUri = "https://api.spotify.com/v1";
       var _accessToken = null;
