@@ -1,0 +1,26 @@
+User's Top Tracks
+@for (tracks of usersTopTracks;track $index)
+{
+  <app-music-card
+  [topTracks]="tracks">
+  </app-music-card>
+}
+
+User's Top Artist
+@for (artist of usersTopArtists; track $index)
+{
+  <app-music-card
+  [topTracks]="artist">
+  </app-music-card> 
+}
+
+<!-- <div>
+  <p>Saved Albums: {{ savedAlbums }}</p>
+  <p>User's Saved tracks: {{ usersSavedTracks }}</p>
+  <p>User's Top Artists: {{ usersTopArtists }}</p>
+  <p>User's Top Tracks: {{ usersTopTracks }}</p>
+  <p>User's Recently Played Tracks: {{ usersRecentlyPlayedTracks }}</p>
+</div> -->
+  
+
+<router-outlet></router-outlet>
