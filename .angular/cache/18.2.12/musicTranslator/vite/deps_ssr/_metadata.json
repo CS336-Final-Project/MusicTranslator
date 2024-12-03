@@ -1,79 +1,85 @@
 {
-  "hash": "eb241c42",
-  "configHash": "30ab887d",
+  "hash": "eb235731",
+  "configHash": "32661cd9",
   "lockfileHash": "50d6d3c2",
-  "browserHash": "e997111d",
+  "browserHash": "85afe416",
   "optimized": {
     "@angular/common": {
       "src": "../../../../../../node_modules/@angular/common/fesm2022/common.mjs",
       "file": "@angular_common.js",
-      "fileHash": "0f90e3c1",
+      "fileHash": "b425ccc7",
       "needsInterop": false
     },
     "@angular/core": {
       "src": "../../../../../../node_modules/@angular/core/fesm2022/core.mjs",
       "file": "@angular_core.js",
-      "fileHash": "964f4e8f",
+      "fileHash": "0c10d4bf",
+      "needsInterop": false
+    },
+    "@angular/forms": {
+      "src": "../../../../../../node_modules/@angular/forms/fesm2022/forms.mjs",
+      "file": "@angular_forms.js",
+      "fileHash": "6e173b39",
       "needsInterop": false
     },
     "@angular/material/card": {
       "src": "../../../../../../node_modules/@angular/material/fesm2022/card.mjs",
       "file": "@angular_material_card.js",
-      "fileHash": "b23ec813",
+      "fileHash": "9dde3e22",
       "needsInterop": false
     },
     "@angular/material/icon": {
       "src": "../../../../../../node_modules/@angular/material/fesm2022/icon.mjs",
       "file": "@angular_material_icon.js",
-      "fileHash": "76022f84",
+      "fileHash": "77391e46",
       "needsInterop": false
     },
     "@angular/material/list": {
       "src": "../../../../../../node_modules/@angular/material/fesm2022/list.mjs",
       "file": "@angular_material_list.js",
-      "fileHash": "dcb7dc88",
+      "fileHash": "aadebbd8",
       "needsInterop": false
     },
     "@angular/material/sidenav": {
       "src": "../../../../../../node_modules/@angular/material/fesm2022/sidenav.mjs",
       "file": "@angular_material_sidenav.js",
-      "fileHash": "4c409e44",
+      "fileHash": "31032d52",
       "needsInterop": false
     },
     "@angular/material/toolbar": {
       "src": "../../../../../../node_modules/@angular/material/fesm2022/toolbar.mjs",
       "file": "@angular_material_toolbar.js",
-      "fileHash": "44cfcf73",
+      "fileHash": "14f62656",
       "needsInterop": false
     },
     "@angular/platform-browser": {
       "src": "../../../../../../node_modules/@angular/platform-browser/fesm2022/platform-browser.mjs",
       "file": "@angular_platform-browser.js",
-      "fileHash": "86366519",
+      "fileHash": "97070ff3",
       "needsInterop": false
     },
     "@angular/platform-browser/animations/async": {
       "src": "../../../../../../node_modules/@angular/platform-browser/fesm2022/animations/async.mjs",
       "file": "@angular_platform-browser_animations_async.js",
-      "fileHash": "915a504a",
+      "fileHash": "6fc13cf0",
       "needsInterop": false
     },
     "@angular/platform-server": {
       "src": "../../../../../../node_modules/@angular/platform-server/fesm2022/platform-server.mjs",
       "file": "@angular_platform-server.js",
-      "fileHash": "732bb42f",
+      "fileHash": "8a09dfd4",
       "needsInterop": false
     },
     "@angular/router": {
       "src": "../../../../../../node_modules/@angular/router/fesm2022/router.mjs",
       "file": "@angular_router.js",
-      "fileHash": "3c93400a",
+      "fileHash": "32861775",
       "needsInterop": false
     },
     "spotify-web-api-js": {
       "src": "../../../../../../node_modules/spotify-web-api-js/src/spotify-web-api.js",
       "file": "spotify-web-api-js.js",
-      "fileHash": "71308444",
+      "fileHash": "79d8898f",
       "needsInterop": true
     }
   },
@@ -90,14 +96,17 @@
     "chunk-OPE7NNTO": {
       "file": "chunk-OPE7NNTO.js"
     },
-    "chunk-LHU7XGY3": {
-      "file": "chunk-LHU7XGY3.js"
-    },
     "chunk-GGJP2QIL": {
       "file": "chunk-GGJP2QIL.js"
     },
+    "chunk-LHU7XGY3": {
+      "file": "chunk-LHU7XGY3.js"
+    },
     "chunk-DIJ7U4II": {
       "file": "chunk-DIJ7U4II.js"
+    },
+    "chunk-KFLNUJDP": {
+      "file": "chunk-KFLNUJDP.js"
     },
     "chunk-AWWGSX4I": {
       "file": "chunk-AWWGSX4I.js"

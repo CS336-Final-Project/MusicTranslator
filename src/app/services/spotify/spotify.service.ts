@@ -188,7 +188,64 @@ export class SpotifyService {
 
 
   /*Search*/
-
+    getSearchRequest(query: string, options?: object): Promise<{ type: string; name: string }[]> {
+    if (!this.isLoggedIn()) {
+      console.warn('User is not logged in. Redirecting to login.');
+      this.getAccessToken();
+      return Promise.reject('User not logged in');
+    }
+  
+    return this.spotifyWebApi.search(query, ['album', 'artist', 'playlist', 'track'], options)
+      .then((response: any) => {
+        const results: { type: string; name: string }[] = [];
+  
+        // Process 'artist' results
+        const artists = response['artists']?.items || [];
+        artists.forEach((artist: any) => {
+          if (artist?.name) {
+            results.push({ type: 'artist', name: artist.name });
+          }
+        });
+  
+        // Process 'track' results
+        const tracks = response['tracks']?.items || [];
+        tracks.forEach((track: any) => {
+          const trackName = track?.name || 'Unknown Track';
+          const artistName = track?.artists?.[0]?.name || 'Unknown Artist';
+          results.push({
+            type: 'track',
+            name: `${trackName} by ${artistName}`,
+          });
+        });
+  
+        // Process 'album' results
+        const albums = response['albums']?.items || [];
+        albums.forEach((album: any) => {
+          const albumName = album?.name || 'Unknown Album';
+          const artistName = album?.artists?.[0]?.name || 'Unknown Artist';
+          results.push({
+            type: 'album',
+            name: `${albumName} by ${artistName}`,
+          });
+        });
+  
+        // Process 'playlist' results
+        const playlists = response['playlists']?.items || [];
+        playlists.forEach((playlist: any) => {
+          if (playlist?.name) {
+            results.push({ type: 'playlist', name: `${playlist.name} (Playlist)` });
+          }
+        });
+  
+        // Limit results to 10 and return
+        return results.slice(0, 10);
+      })
+      .catch((error) => {
+        console.error('Error fetching search results:', error);
+        return Promise.reject('Error fetching search results');
+      });
+  }
+  
 
   /*Tracks*/
   getUsersSavedTracks(): Promise<string[]>{

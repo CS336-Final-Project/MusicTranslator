@@ -10,7 +10,6 @@ import { SpotifyService } from '../../services/spotify/spotify.service';
   styleUrl: './music-card.component.css'
 })
 export class MusicCardComponent {
-  //userName = input.required<string>();
   topTracks = input.required<string>();
   //topArtists = input.required<string[]>();
 }
