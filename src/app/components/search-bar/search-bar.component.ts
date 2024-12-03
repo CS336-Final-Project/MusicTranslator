@@ -1,11 +1,12 @@
 import { Component, Output, EventEmitter } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { SpotifyService } from '../../services/spotify/spotify.service';
+import { MatToolbarModule } from '@angular/material/toolbar';
 
 @Component({
   selector: 'app-search-bar',
   standalone: true,
-  imports: [FormsModule],
+  imports: [FormsModule, MatToolbarModule],
   templateUrl: './search-bar.component.html',
   styleUrl: './search-bar.component.css'
 })
