@@ -1,26 +1,26 @@
-import { Component, OnInit } from '@angular/core';
-import { RouterOutlet, RouterLink } from '@angular/router';
-import { MatToolbarModule } from '@angular/material/toolbar';
-import { MatIconModule } from '@angular/material/icon';
-import { CommonModule } from '@angular/common';
-import { SpotifyService } from '../../services/spotify/spotify.service';
-import { MusicCardComponent } from '../../components/music-card/music-card.component';
+import { Component, OnInit } from "@angular/core";
+import { RouterOutlet, RouterLink } from "@angular/router";
+import { MatToolbarModule } from "@angular/material/toolbar";
+import { MatIconModule } from "@angular/material/icon";
+import { CommonModule } from "@angular/common";
+import { SpotifyService } from "../../services/spotify/spotify.service";
+import { MusicCardComponent } from "../../components/music-card/music-card.component";
 
 @Component({
-  selector: 'app-home',
+  selector: "app-home",
   standalone: true,
   imports: [
     RouterOutlet,
     MatToolbarModule,
     MatIconModule,
     CommonModule,
-    MusicCardComponent
-],
-  templateUrl: './home.component.html',
-  styleUrls: ['./home.component.css'],
+    MusicCardComponent,
+  ],
+  templateUrl: "./home.component.html",
+  styleUrls: ["./home.component.css"],
 })
 export class HomeComponent implements OnInit {
-  userName: string = '';
+  userName: string = "";
   usersTopArtists: Array<string> = [];
   usersTopTracks: Array<string> = [];
   usersRecentlyPlayedTracks: Array<string> = [];
@@ -34,13 +34,20 @@ export class HomeComponent implements OnInit {
   ngOnInit(): void {
     if (this.spotifyService.isLoggedIn()) {
       this.spotifyService.getUserName().then((name) => (this.userName = name));
-      this.spotifyService.getUsersTopArtists().then((topArtists) => (this.usersTopArtists = topArtists));
-      this.spotifyService.getUsersTopTracks().then((topTracks) => (this.usersTopTracks = topTracks));
-      this.spotifyService.getUsersRecentlyPlayedTracks().then((recentlyPlayed) => (this.usersRecentlyPlayedTracks = recentlyPlayed));
+      this.spotifyService
+        .getUsersTopArtists()
+        .then((topArtists) => (this.usersTopArtists = topArtists));
+      this.spotifyService
+        .getUsersTopTracks()
+        .then((topTracks) => (this.usersTopTracks = topTracks));
+      this.spotifyService
+        .getUsersRecentlyPlayedTracks()
+        .then(
+          (recentlyPlayed) => (this.usersRecentlyPlayedTracks = recentlyPlayed)
+        );
 
       //this.spotifyService.getUsersSavedAlbums().then((albums) => (this.savedAlbums = albums));
       //this.spotifyService.getUsersSavedTracks().then((tracks) => (this.usersSavedTracks = tracks));
-
     }
   }
 }
