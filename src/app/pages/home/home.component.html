@@ -1,18 +1,30 @@
-User's Top Tracks
-@for (tracks of usersTopTracks;track $index)
-{
-  <app-music-card
-  [topTracks]="tracks">
-  </app-music-card>
-}
+<div class="userTracks">
+  <p>User's Top Tracks</p>
+  <div class="grid-container">
+    @for (tracks of usersTopTracks; track $index)
+    {
+      <div class="grid-item">
+        <app-music-card
+          [topTracks]="tracks">
+        </app-music-card>
+      </div>
+    }
+  </div>
+</div>
 
-User's Top Artist
-@for (artist of usersTopArtists; track $index)
-{
-  <app-music-card
-  [topTracks]="artist">
-  </app-music-card> 
-}
+<div class="topArtists">
+  <p>User's Top Artists</p>
+  <div class="grid-container">
+    @for (artist of usersTopArtists; track $index)
+    {
+      <div class="grid-item">
+        <app-music-card
+          [topTracks]="artist">
+        </app-music-card>
+      </div>
+    }
+  </div>
+</div>
 
 <!-- <div>
   <p>Saved Albums: {{ savedAlbums }}</p>
@@ -21,6 +33,8 @@ User's Top Artist
   <p>User's Top Tracks: {{ usersTopTracks }}</p>
   <p>User's Recently Played Tracks: {{ usersRecentlyPlayedTracks }}</p>
 </div> -->
+
+<p>Current Playing Track: {{currentPlayingTrack}}</p>
   
 
 <router-outlet></router-outlet>

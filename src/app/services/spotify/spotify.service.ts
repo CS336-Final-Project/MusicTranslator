@@ -71,14 +71,18 @@ export class SpotifyService {
     const token = localStorage.getItem('spotify_access_token');
     return !!token;
   }
+
+  private ensureLoggedIn(): void {
+    if(!this.isLoggedIn()) {
+      console.warn('User is not logged in. Redirecting to login.');
+      this.getAccessToken();
+      throw new Error('User not logged in');
+    }
+  }
   /*Album Info*/
   //Get Album
   getAlbum(albumId: string, options?: object): Promise<string>{
-    if (!this.isLoggedIn()) {
-      console.warn('User is not logged in. Redirecting to login.');
-      this.getAccessToken();
-      return Promise.reject('User not logged in');
-    }
+    this.ensureLoggedIn();
 
     return this.spotifyWebApi.getAlbum(albumId, options)
      .then((response) => {
@@ -93,11 +97,7 @@ export class SpotifyService {
 
   //Get Album Tracks
   getAlbumTracks(albumId: string, options?: object): Promise<string[]>{
-    if (!this.isLoggedIn()) {
-      console.warn('User is not logged in. Redirecting to login.');
-      this.getAccessToken();
-      return Promise.reject('User not logged in');
-    }
+    this.ensureLoggedIn();
 
     return this.spotifyWebApi.getAlbumTracks(albumId, options)
      .then((response) => {
@@ -112,11 +112,7 @@ export class SpotifyService {
   //Get User's Saved Albums
   getUsersSavedAlbums():Promise<Array<string>> 
   {
-    if (!this.isLoggedIn()) {
-      console.warn('User is not logged in. Redirecting to login.');
-      this.getAccessToken();
-      return Promise.reject('User not logged in');
-    }
+    this.ensureLoggedIn();
 
     return this.spotifyWebApi.getMySavedAlbums({limit:10})
     .then((response) => {
@@ -129,11 +125,7 @@ export class SpotifyService {
   }
 
   addToSavedAlbums(albumIds: string[], options?: object):Promise<void> {
-    if (!this.isLoggedIn()) {
-      console.warn('User is not logged in. Redirecting to login.');
-      this.getAccessToken();
-      return Promise.reject('User not logged in');
-    }
+    this.ensureLoggedIn();
 
     return this.spotifyWebApi.addToMySavedAlbums(albumIds, options)
       .then(() => {
@@ -147,11 +139,7 @@ export class SpotifyService {
   }
 
   removeFromSavedAlbums(albumIds: string[], options?: object):Promise<void> {
-    if (!this.isLoggedIn()) {
-      console.warn('User is not logged in. Redirecting to login.');
-      this.getAccessToken();
-      return Promise.reject('User not logged in');
-    }
+    this.ensureLoggedIn();
 
     return this.spotifyWebApi.removeFromMySavedAlbums(albumIds, options)
       .then(() => {
@@ -182,18 +170,93 @@ export class SpotifyService {
   //Get Available Genre Seeds
 
   /*Player*/
+  getCurrentPlaybackState(options?: object): Promise<any> {
+    this.ensureLoggedIn();
 
+    return this.spotifyWebApi.getMyCurrentPlaybackState(options)
+      .then(response => response)
+      .catch(error => {
+        console.error('Error fetching playback state:', error);
+        throw error;
+      });
+  }
+
+  getMyCurrentPlayingTrack(): Promise<any> {
+    this.ensureLoggedIn();
+    return this.spotifyWebApi.getMyCurrentPlayingTrack()
+      .then(response => response)
+      .catch(error => {
+        console.error('Error fetching current playing track:', error);
+        throw error;
+      });
+  }
+
+  play(options?: object): Promise<void> {
+    this.ensureLoggedIn();
+    return this.spotifyWebApi.play(options)
+      .then(() => console.log('Playback started'))
+      .catch(error => {
+        console.error('Error starting playback:', error);
+        throw error;
+      });
+  }
+
+  queue(uri: string, options?: object): Promise<void> {
+    this.ensureLoggedIn();
+    return this.spotifyWebApi.queue(uri, options)
+      .then(() => console.log(`Added to queue: ${uri}`))
+      .catch(error => {
+        console.error('Error adding to queue:', error);
+        throw error;
+      });
+  }
+
+  pause(options?: object): Promise<void> {
+    this.ensureLoggedIn();
+    return this.spotifyWebApi.pause(options)
+      .then(() => console.log('Playback paused'))
+      .catch(error => {
+        console.error('Error pausing playback:', error);
+        throw error;
+      });
+  }
+
+  skipToNextTrack(options?: object): Promise<void> {
+    this.ensureLoggedIn();
+    return this.spotifyWebApi.skipToNext(options)
+      .then(() => console.log('Skipped to next track'))
+      .catch(error => {
+        console.error('Error skipping to next track:', error);
+        throw error;
+      });
+  }
+
+  skipToPreviousTrack(options?: object): Promise<void> {
+    this.ensureLoggedIn();
+    return this.spotifyWebApi.skipToPrevious(options)
+      .then(() => console.log('Skipped to previous track'))
+      .catch(error => {
+        console.error('Error skipping to previous track:', error);
+        throw error;
+      });
+  }
+
+  setVolume(volumePercent: number): Promise<void> {
+    this.ensureLoggedIn();
+    return this.spotifyWebApi.setVolume(volumePercent)
+      .then(() => console.log(`Volume set to ${volumePercent}%`))
+      .catch(error => {
+        console.error('Error setting volume:', error);
+        throw error;
+      });
+  }
 
   /*Playlists*/
 
 
   /*Search*/
     getSearchRequest(query: string, options?: object): Promise<{ type: string; name: string }[]> {
-    if (!this.isLoggedIn()) {
-      console.warn('User is not logged in. Redirecting to login.');
-      this.getAccessToken();
-      return Promise.reject('User not logged in');
-    }
+      this.ensureLoggedIn();
   
     return this.spotifyWebApi.search(query, ['album', 'artist', 'playlist', 'track'], options)
       .then((response: any) => {
@@ -249,11 +312,7 @@ export class SpotifyService {
 
   /*Tracks*/
   getUsersSavedTracks(): Promise<string[]>{
-    if (!this.isLoggedIn()) {
-      console.warn('User is not logged in. Redirecting to login.');
-      this.getAccessToken();
-      return Promise.reject('User not logged in');
-    }
+    this.ensureLoggedIn();
 
     return this.spotifyWebApi.getMySavedTracks()
      .then((response) => {
@@ -266,11 +325,7 @@ export class SpotifyService {
   }
 
   addToUsersSavedTracks(trackIds: string[], options?: object): Promise<void> {
-    if (!this.isLoggedIn()) {
-      console.warn('User is not logged in. Redirecting to login.');
-      this.getAccessToken();
-      return Promise.reject('User not logged in');
-    }
+    this.ensureLoggedIn();
   
     return this.spotifyWebApi.addToMySavedTracks(trackIds, options)
       .then(() => {
@@ -284,11 +339,7 @@ export class SpotifyService {
   }
 
   removeFromUsersSavedTracks(trackIds: string[], options?: object): Promise<void> {
-    if (!this.isLoggedIn()) {
-      console.warn('User is not logged in. Redirecting to login.');
-      this.getAccessToken();
-      return Promise.reject('User not logged in');
-    }
+    this.ensureLoggedIn();
   
     return this.spotifyWebApi.addToMySavedTracks(trackIds, options)
       .then(() => {
@@ -303,11 +354,7 @@ export class SpotifyService {
 
   /*User Info*/
   getUserName(): Promise<string> {
-    if (!this.isLoggedIn()) {
-      console.warn('User is not logged in. Redirecting to login.');
-      this.getAccessToken();
-      return Promise.resolve('');
-    }
+    this.ensureLoggedIn();
 
     const token = localStorage.getItem('spotify_access_token');
     this.spotifyWebApi.setAccessToken(token!);
@@ -325,13 +372,9 @@ export class SpotifyService {
   }
 
   getUsersTopArtists(): Promise<string[]> {
-    if (!this.isLoggedIn()) {
-      console.warn('User is not logged in. Redirecting to login.');
-      this.getAccessToken();
-      return Promise.resolve([]);
-    }
+    this.ensureLoggedIn();
 
-    return this.spotifyWebApi.getMyTopArtists({ limit: 5 })
+    return this.spotifyWebApi.getMyTopArtists({ limit: 6 })
      .then((response) => response.items.map((item) => item.name))
      .catch((error) => {
         console.error('Error fetching user top artists:', error);
@@ -340,13 +383,9 @@ export class SpotifyService {
   }
 
   getUsersTopTracks(): Promise<string[]> {
-    if (!this.isLoggedIn()) {
-      console.warn('User is not logged in. Redirecting to login.');
-      this.getAccessToken();
-      return Promise.resolve([]);
-    }
+    this.ensureLoggedIn();
 
-    return this.spotifyWebApi.getMyTopTracks({ limit: 5 })
+    return this.spotifyWebApi.getMyTopTracks({ limit: 6 })
      .then((response) => response.items.map((item) => item.name))
      .catch((error) => {
         console.error('Error fetching user top tracks:', error);
@@ -355,11 +394,7 @@ export class SpotifyService {
   }
 
   getUsersRecentlyPlayedTracks(): Promise<string[]>{
-    if (!this.isLoggedIn()) {
-      console.warn('User is not logged in. Redirecting to login.');
-      this.getAccessToken();
-      return Promise.resolve([]);
-    }
+    this.ensureLoggedIn();
 
     return this.spotifyWebApi.getMyRecentlyPlayedTracks()
      .then((response) => response.items.map((item) => item.track.name))

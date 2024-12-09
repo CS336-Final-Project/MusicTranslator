@@ -5,6 +5,7 @@ import { SearchComponent } from './pages/search/search.component';
 import { ListenComponent } from './pages/listen/listen.component';
 import { ProfileComponent } from './pages/profile/profile.component';
 import { LoginComponent } from './login/login.component';
+import { ArtistPageComponent } from './pages/artist-page/artist-page.component';
 import { AuthGuard } from './auth.guard';
 
 export const routes: Routes = [
@@ -13,6 +14,7 @@ export const routes: Routes = [
     {path: '', component: HomeComponent, canActivate: [AuthGuard]},
     {path: 'search', component: SearchComponent, canActivate: [AuthGuard]},
     {path: 'listen', component: ListenComponent, canActivate: [AuthGuard]},
+    {path: 'artists', component: ArtistPageComponent, canActivate: [AuthGuard]},
     {path: 'profile', component: ProfileComponent, canActivate: [AuthGuard]},
 
     {path: '**', redirectTo:'login'},

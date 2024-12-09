@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { RouterOutlet, RouterLink } from '@angular/router';
+import { RouterOutlet } from '@angular/router';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatIconModule } from '@angular/material/icon';
 import { CommonModule } from '@angular/common';
@@ -24,6 +24,7 @@ export class HomeComponent implements OnInit {
   usersTopArtists: Array<string> = [];
   usersTopTracks: Array<string> = [];
   usersRecentlyPlayedTracks: Array<string> = [];
+  currentPlayingTrack: string = '';
 
   //usersSavedTracks: Array<string> = [];
   //savedAlbums: Array<string> = [];
@@ -38,6 +39,16 @@ export class HomeComponent implements OnInit {
       this.spotifyService.getUsersTopTracks().then((topTracks) => (this.usersTopTracks = topTracks));
       this.spotifyService.getUsersRecentlyPlayedTracks().then((recentlyPlayed) => (this.usersRecentlyPlayedTracks = recentlyPlayed));
 
+      this.spotifyService.getMyCurrentPlayingTrack().then((playing) => {
+        if (playing && playing.item) {
+          this.currentPlayingTrack = `${playing.item.name} by ${playing.item.artists.map((artist: any) => artist.name).join(', ')}`;
+        } else {
+          this.currentPlayingTrack = 'No track currently playing.';
+        }
+      }).catch((error) => {
+        console.error('Error fetching current playing track:', error);
+        this.currentPlayingTrack = 'Error fetching current playing track.';
+      });
       //this.spotifyService.getUsersSavedAlbums().then((albums) => (this.savedAlbums = albums));
       //this.spotifyService.getUsersSavedTracks().then((tracks) => (this.usersSavedTracks = tracks));
 
