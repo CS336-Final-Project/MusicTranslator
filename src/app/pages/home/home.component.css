@@ -1,0 +1,20 @@
+.music-section {
+  display: flex;
+  gap: 20px; /* Space between the sections */
+}
+
+.top-tracks,
+.top-artists {
+  flex: 1; /* Ensures equal width for both sections */
+  max-width: 50%; /* Ensures they don't exceed half the container width */
+}
+
+h3 {
+  text-align: center; /* Optional, for aligning section headers */
+  margin-bottom: 15px; /* Adds spacing below the header */
+}
+
+app-music-card {
+  display: block;
+  margin-bottom: 10px; /* Adds spacing between cards */
+}
