@@ -1,18 +1,12 @@
-<mat-toolbar>
-  <h1>[Logo/Name]</h1>
-  <input
-    type="search"
-    placeholder="Need music?"
-    [(ngModel)]="query"
-    (keyup.enter)="sendSearch()"
-  />
-  <img src="" alt="profile pic" />
-</mat-toolbar>
 
-<!-- <app-search-bar (resultsEmitter)="handleSearchResults($event)"></app-search-bar>
-<div *ngIf="searchResults?.length">
-  <h3>Search Results</h3>
-  <ul>
-    <li *ngFor="let result of searchResults">{{ result }}</li>
-  </ul>
-</div> -->
+<mat-toolbar class="header-toolbar">
+  <div class="logo">
+      <img id="logo" src="../../../assets/tuneLingualLogo.png" alt="TuneLingual Logo">
+  </div>
+  <div class="search">
+      <input type="search" placeholder="Search..." [(ngModel)]="query" (keyup.enter)="sendSearch()">
+  </div>
+  <div class="profile">
+      <img id="profile-pic" src="" alt="profile pic">
+  </div>
+</mat-toolbar>

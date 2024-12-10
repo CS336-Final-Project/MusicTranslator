@@ -1,65 +1,27 @@
-<!-- User's Top Tracks @for (tracks of usersTopTracks;track $index) {
-<app-music-card [topTracks]="tracks"> </app-music-card>
-} User's Top Artist @for (artist of usersTopArtists; track $index) {
-<app-music-card [topTracks]="artist"> </app-music-card>
-} -->
-
-<!-- this is what has been used -->
-<div class="music-section">
-  <div class="top-tracks">
-    <h3>User's Top Tracks</h3>
-    @for (tracks of usersTopTracks; track $index) {
-    <app-music-card [topTracks]="tracks"></app-music-card>
-    }
-  </div>
-  <div class="top-artists">
-    <h3>User's Top Artist</h3>
-    @for (artist of usersTopArtists; track $index) {
-    <app-music-card [topTracks]="artist"></app-music-card>
+<div class="userTracks">
+  <p>User's Top Tracks</p>
+  <div class="grid-container">
+    @for (tracks of usersTopTracks; track $index)
+    {
+      <div class="grid-item">
+        <app-music-card
+          [topTracks]="tracks">
+        </app-music-card>
+      </div>
     }
   </div>
 </div>
 
-<!-- until here -->
-
-<!-- new  -->
-<!-- <div *ngIf="!isSearchActive; else searchContent"> -->
-<!-- Default Home Page Content -->
-<!-- <div class="music-section">
-    <div class="top-tracks">
-      <h3>User's Top Tracks</h3> -->
-<!-- Render user's top tracks -->
-<!-- @for (tracks of usersTopTracks; track $index) { -->
-<!-- <app-music-card [topTracks]="tracks"></app-music-card>
-      }
-    </div>
-    <div class="top-artists">
-      <h3>User's Top Artist</h3> -->
-<!-- Render user's top artists -->
-<!-- @for (artist of usersTopArtists; track $index) {
-      <app-music-card [topTracks]="artist"></app-music-card>
-      }
-    </div>
+<div class="topArtists">
+  <p>User's Top Artists</p>
+  <div class="grid-container">
+    @for (artist of usersTopArtists; track $index)
+    {
+      <div class="grid-item">
+        <app-music-card
+          [topTracks]="artist">
+        </app-music-card>
+      </div>
+    }
   </div>
 </div>
-
-<ng-template #searchContent> -->
-<!-- Search Results Content -->
-<!-- <button (click)="resetHome()">Go Back</button>
-  <h2>Search Results</h2>
-  <ul>
-    <li *ngFor="let result of searchResults">{{ result }}</li>
-  </ul>
-</ng-template> -->
-
-<!-- new -->
-
-<!-- <div>
-  <p>Saved Albums: {{ savedAlbums }}</p>
-  <p>User's Saved tracks: {{ usersSavedTracks }}</p>
-  <p>User's Top Artists: {{ usersTopArtists }}</p>
-  <p>User's Top Tracks: {{ usersTopTracks }}</p>
-  <p>User's Recently Played Tracks: {{ usersRecentlyPlayedTracks }}</p>
-</div> -->
-
-<router-outlet></router-outlet>

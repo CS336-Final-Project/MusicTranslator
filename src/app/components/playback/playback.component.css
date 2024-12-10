@@ -1,0 +1,22 @@
+.trackInfo {
+    width: auto;
+}
+
+.middle {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    
+}
+
+.playbackButtons {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    justify-content: center;
+}
+
+.trackTime {
+    width: 300px;
+}

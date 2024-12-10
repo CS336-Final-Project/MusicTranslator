@@ -1,5 +1,8 @@
 import { createRequire } from 'module';const require = createRequire(import.meta.url);
 import {
+  NG_VALUE_ACCESSOR
+} from "./chunk-EYN7DJ4J.js";
+import {
   Directionality,
   MAT_RIPPLE_GLOBAL_OPTIONS,
   MatCommonModule,
@@ -7,11 +10,8 @@ import {
   MatRippleModule,
   Platform,
   RippleState
-} from "./chunk-CLVL5MAT.js";
-import {
-  NG_VALUE_ACCESSOR
-} from "./chunk-KFLNUJDP.js";
-import "./chunk-AWWGSX4I.js";
+} from "./chunk-JGTT7ICL.js";
+import "./chunk-V7LYLKLS.js";
 import {
   ANIMATION_MODULE_TYPE,
   ChangeDetectionStrategy,
@@ -36,7 +36,6 @@ import {
   forwardRef,
   inject,
   numberAttribute,
-  require_cjs,
   setClassMetadata,
   signal,
   ɵɵInheritDefinitionFeature,
@@ -72,10 +71,15 @@ import {
   ɵɵtext,
   ɵɵtextInterpolate,
   ɵɵviewQuery
-} from "./chunk-44JQ5FZC.js";
+} from "./chunk-N64SIUQ6.js";
+import {
+  require_cjs
+} from "./chunk-CKN2QDU6.js";
+import "./chunk-RKKF6KD2.js";
+import "./chunk-VBHR3Y32.js";
 import {
   __toESM
-} from "./chunk-NQ4HTGF6.js";
+} from "./chunk-INDP74QC.js";
 
 // node_modules/@angular/material/fesm2022/slider.mjs
 var import_rxjs = __toESM(require_cjs(), 1);

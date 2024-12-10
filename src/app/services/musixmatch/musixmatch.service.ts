@@ -12,23 +12,17 @@ export class MusixmatchService {
 
   constructor(private http: HttpClient) {}
 
-  getLyrics(trackId: number): Observable<string> {
-    const url = `${this.apiUrl}/track.lyrics.get?track_id=${trackId}&apikey=${this.apiKey}`;
+  getTranslatedSubtitles(
+    trackId: number,
+    selectedLanguage: string,
+    minCompleted: number = 1 // Default to fully translated
+  ): Observable<any> {
+    const url = `${this.apiUrl}/track.subtitle.translation.get?track_id=${trackId}&selected_language=${selectedLanguage}&min_completed=${minCompleted}&apikey=${this.apiKey}`;
     return this.http.get<any>(url).pipe(
       map((response) => {
-        const lyrics = response?.message?.body?.lyrics?.lyrics_body;
-        return lyrics || 'Lyrics not available.';
+        const subtitles = response?.message?.body?.subtitle?.subtitle_body;
+        return subtitles || 'Translated subtitles not available.';
       }),
-      catchError(this.handleError)
-    );
-  }
-
-  searchTracks(query: string): Observable<any[]> {
-    const url = `${this.apiUrl}/track.search?q_track=${encodeURIComponent(
-      query
-    )}&apikey=${this.apiKey}`;
-    return this.http.get<any>(url).pipe(
-      map((response) => response?.message?.body?.track_list || []),
       catchError(this.handleError)
     );
   }

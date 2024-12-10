@@ -28,9 +28,11 @@ mat-sidenav-content {
 
 #topToolBar {
     border: 2px solid green;
+    height: 8%;
 }
 
 #playback {
+    height: 8%;
     border: 2px solid orange;
 }
 

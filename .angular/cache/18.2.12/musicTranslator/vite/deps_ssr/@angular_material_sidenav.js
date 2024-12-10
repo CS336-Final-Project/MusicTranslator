@@ -5,13 +5,13 @@ import {
   style,
   transition,
   trigger
-} from "./chunk-OPE7NNTO.js";
+} from "./chunk-NQUXSPGU.js";
 import {
   ArrayDataSource,
   _RecycleViewRepeaterStrategy,
   _VIEW_REPEATER_STRATEGY,
   isDataSource
-} from "./chunk-LHU7XGY3.js";
+} from "./chunk-IS7XDOSF.js";
 import {
   BidiModule,
   Directionality,
@@ -28,10 +28,10 @@ import {
   getRtlScrollAxisType,
   hasModifierKey,
   supportsScrollBehavior
-} from "./chunk-CLVL5MAT.js";
+} from "./chunk-JGTT7ICL.js";
 import {
   DOCUMENT
-} from "./chunk-AWWGSX4I.js";
+} from "./chunk-V7LYLKLS.js";
 import {
   ANIMATION_MODULE_TYPE,
   AfterRenderPhase,
@@ -63,8 +63,6 @@ import {
   booleanAttribute,
   forwardRef,
   inject,
-  require_cjs,
-  require_operators,
   setClassMetadata,
   ɵɵInheritDefinitionFeature,
   ɵɵInputTransformsFeature,
@@ -101,10 +99,17 @@ import {
   ɵɵsyntheticHostProperty,
   ɵɵtemplate,
   ɵɵviewQuery
-} from "./chunk-44JQ5FZC.js";
+} from "./chunk-N64SIUQ6.js";
+import {
+  require_cjs
+} from "./chunk-CKN2QDU6.js";
+import {
+  require_operators
+} from "./chunk-RKKF6KD2.js";
+import "./chunk-VBHR3Y32.js";
 import {
   __toESM
-} from "./chunk-NQ4HTGF6.js";
+} from "./chunk-INDP74QC.js";
 
 // node_modules/@angular/cdk/fesm2022/scrolling.mjs
 var import_rxjs = __toESM(require_cjs(), 1);
