@@ -14,6 +14,7 @@ export class SearchBarComponent {
   query: string = "";
   @Output() resultsEmitter = new EventEmitter<string[]>(); // Emit search results
   constructor(private spotifyService: SpotifyService) {}
+
   async sendSearch() {
     if (!this.query.trim()) {
       console.warn("Search query is empty. Please enter a valid query.");
@@ -21,12 +22,28 @@ export class SearchBarComponent {
     }
     try {
       console.log(`Searching for: ${this.query}`);
-      const results = await this.spotifyService.getSearchRequest(this.query);
-      const resultNames = results.map((result) => result.name);
-      this.resultsEmitter.emit(resultNames); // Emit results to parent
-      console.log("Search results:", resultNames);
+      const response = await this.spotifyService.getSearchRequest(this.query);
+      const results = response.map((item: { name: string }) => item.name);
+      this.resultsEmitter.emit(results); // Emit results to the parent
+      console.log("Search results:", results);
     } catch (error) {
       console.error("Error during search:", error);
     }
   }
+
+  // async sendSearch() {
+  //   if (!this.query.trim()) {
+  //     console.warn("Search query is empty. Please enter a valid query.");
+  //     return;
+  //   }
+  //   try {
+  //     console.log(`Searching for: ${this.query}`);
+  //     const results = await this.spotifyService.getSearchRequest(this.query);
+  //     const resultNames = results.map((result) => result.name);
+  //     this.resultsEmitter.emit(resultNames); // Emit results to parent
+  //     console.log("Search results:", resultNames);
+  //   } catch (error) {
+  //     console.error("Error during search:", error);
+  //   }
+  // }
 }
