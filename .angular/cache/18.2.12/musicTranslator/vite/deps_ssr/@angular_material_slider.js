@@ -1,8 +1,5 @@
 import { createRequire } from 'module';const require = createRequire(import.meta.url);
 import {
-  NG_VALUE_ACCESSOR
-} from "./chunk-KFLNUJDP.js";
-import {
   Directionality,
   MAT_RIPPLE_GLOBAL_OPTIONS,
   MatCommonModule,
@@ -11,6 +8,9 @@ import {
   Platform,
   RippleState
 } from "./chunk-CLVL5MAT.js";
+import {
+  NG_VALUE_ACCESSOR
+} from "./chunk-KFLNUJDP.js";
 import "./chunk-AWWGSX4I.js";
 import {
   ANIMATION_MODULE_TYPE,

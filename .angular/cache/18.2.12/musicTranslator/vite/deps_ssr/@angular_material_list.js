@@ -1,8 +1,5 @@
 import { createRequire } from 'module';const require = createRequire(import.meta.url);
 import {
-  NG_VALUE_ACCESSOR
-} from "./chunk-KFLNUJDP.js";
-import {
   SelectionModel
 } from "./chunk-LHU7XGY3.js";
 import {
@@ -23,6 +20,9 @@ import {
   coerceNumberProperty,
   hasModifierKey
 } from "./chunk-CLVL5MAT.js";
+import {
+  NG_VALUE_ACCESSOR
+} from "./chunk-KFLNUJDP.js";
 import {
   CommonModule,
   NgTemplateOutlet
