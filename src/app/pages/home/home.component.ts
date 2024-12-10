@@ -1,20 +1,25 @@
 import { Component, OnInit } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import { RouterOutlet, RouterLink } from '@angular/router';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatIconModule } from '@angular/material/icon';
+import { MatListModule, MatNavList } from '@angular/material/list';
 import { CommonModule } from '@angular/common';
 import { SpotifyService } from '../../services/spotify/spotify.service';
+import { MatSidenavModule } from '@angular/material/sidenav';
+import { PlaybackComponent } from '../../components/playback/playback.component';
 import { MusicCardComponent } from '../../components/music-card/music-card.component';
+import { SearchBarComponent } from "../../components/search-bar/search-bar.component";
 
 @Component({
   selector: 'app-home',
   standalone: true,
   imports: [
-    RouterOutlet,
     MatToolbarModule,
+    MatSidenavModule,
     MatIconModule,
     CommonModule,
-    MusicCardComponent
+    MatListModule,
+    MusicCardComponent,
 ],
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css'],

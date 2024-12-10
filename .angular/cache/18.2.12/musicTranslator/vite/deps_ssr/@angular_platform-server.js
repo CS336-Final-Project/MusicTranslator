@@ -7,19 +7,19 @@ import {
   NoopAnimationDriver,
   WebAnimationsDriver,
   WebAnimationsStyleNormalizer
-} from "./chunk-VXHXJBKG.js";
-import "./chunk-GNO26OI2.js";
+} from "./chunk-OWJGBLMJ.js";
+import "./chunk-NQUXSPGU.js";
 import {
   BrowserDomAdapter,
   BrowserModule,
   DomRendererFactory2,
   EVENT_MANAGER_PLUGINS,
   EventManagerPlugin
-} from "./chunk-QNLDIUVW.js";
+} from "./chunk-T2UQSN2L.js";
 import {
   HTTP_ROOT_INTERCEPTOR_FNS,
   HttpClientModule
-} from "./chunk-FYFYDHJG.js";
+} from "./chunk-J7TK5KRS.js";
 import {
   DOCUMENT,
   NullViewportScroller,
@@ -29,7 +29,7 @@ import {
   XhrFactory,
   getDOM,
   setRootDomAdapter
-} from "./chunk-D3A776QW.js";
+} from "./chunk-V7LYLKLS.js";
 import {
   ALLOW_MULTIPLE_PLATFORMS,
   ANIMATION_MODULE_TYPE,
@@ -65,16 +65,16 @@ import {
   ɵɵdefineInjector,
   ɵɵdefineNgModule,
   ɵɵinject
-} from "./chunk-G23GSEZT.js";
-import "./chunk-UOPINYA3.js";
+} from "./chunk-N64SIUQ6.js";
 import {
   require_cjs
-} from "./chunk-5IW5ZEPE.js";
-import "./chunk-RPWZ4CMX.js";
+} from "./chunk-CKN2QDU6.js";
+import "./chunk-RKKF6KD2.js";
+import "./chunk-VBHR3Y32.js";
 import {
   __async,
   __toESM
-} from "./chunk-NQ4HTGF6.js";
+} from "./chunk-INDP74QC.js";
 
 // node_modules/@angular/platform-browser/fesm2022/animations.mjs
 var InjectableAnimationEngine = class _InjectableAnimationEngine extends AnimationEngine {
@@ -16565,7 +16565,7 @@ var ServerXhr = class _ServerXhr {
       if (!this.xhrImpl) {
         const {
           default: xhr
-        } = yield import("./xhr2-ISERFGGE.js");
+        } = yield import("./xhr2-AL5DODQF.js");
         this.xhrImpl = xhr;
       }
     });

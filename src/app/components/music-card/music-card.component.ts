@@ -1,7 +1,6 @@
 import { Component, input } from '@angular/core';
 import { MatCardModule } from '@angular/material/card';
 import { RouterLink } from '@angular/router';
-import { SpotifyService } from '../../services/spotify/spotify.service';
 
 @Component({
   selector: 'app-music-card',

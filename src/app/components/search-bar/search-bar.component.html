@@ -1,5 +1,11 @@
-<mat-toolbar>
-    <h1>[Logo/Name]</h1>
-    <input type="search" placeholder="Search..." [(ngModel)]="query" (keyup.enter)="sendSearch()">
-    <img src="" alt="profile pic">
+<mat-toolbar class="header-toolbar">
+    <div class="logo">
+        <img id="logo" src="../../../assets/tuneLingualLogo.png" alt="TuneLingual Logo">
+    </div>
+    <div class="search">
+        <input type="search" placeholder="Search..." [(ngModel)]="query" (keyup.enter)="sendSearch()">
+    </div>
+    <div class="profile">
+        <img id="profile-pic" src="" alt="profile pic">
+    </div>
 </mat-toolbar>

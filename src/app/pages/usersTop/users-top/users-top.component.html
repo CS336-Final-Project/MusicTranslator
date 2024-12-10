@@ -1,0 +1,27 @@
+<div class="userTracks">
+  <p>User's Top Tracks</p>
+  <div class="grid-container">
+    @for (tracks of usersTopTracks; track $index)
+    {
+      <div class="grid-item">
+        <app-music-card
+          [topTracks]="tracks">
+        </app-music-card>
+      </div>
+    }
+  </div>
+</div>
+
+<div class="topArtists">
+  <p>User's Top Artists</p>
+  <div class="grid-container">
+    @for (artist of usersTopArtists; track $index)
+    {
+      <div class="grid-item">
+        <app-music-card
+          [topTracks]="artist">
+        </app-music-card>
+      </div>
+    }
+  </div>
+</div>

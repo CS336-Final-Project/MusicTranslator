@@ -1,4 +1,4 @@
-<a routerLink="/artists">
+<a [routerLink]="['/artists', topTracks()]">
     <mat-card>
         <img alt="cover art">
         <mat-card-header>{{ topTracks() }}</mat-card-header>
