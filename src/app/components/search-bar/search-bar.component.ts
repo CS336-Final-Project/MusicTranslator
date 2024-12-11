@@ -32,7 +32,7 @@ export class SearchBarComponent {
       const results = response.map((item: { name: string }) => item.name);
       this.resultsEmitter.emit(results); // Emit results to the parent
 
-      await this.router.navigate(['/listen']);
+      await this.router.navigate(['/search']);
       console.log("Search results:", results);
 
       const userID = await this.spotifyService.getUserName();
