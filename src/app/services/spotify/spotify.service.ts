@@ -14,16 +14,26 @@ export class SpotifyService {
     this.isBrowser = isPlatformBrowser(this.platformId);
 
     if (this.isBrowser) {
-      const hash = window.location.hash.substring(1);
-      const params = new URLSearchParams(hash);
-      const accessToken = params.get('access_token');
+      this.initializeAccessToken();
+    }
+  }
 
-      if (accessToken) {
-        this.spotifyWebApi.setAccessToken(accessToken);
-        localStorage.setItem('spotify_access_token', accessToken);
-        window.history.replaceState(null, '', window.location.pathname);
+  private initializeAccessToken(): void {
+    const hash = window.location.hash.substring(1);
+    const params = new URLSearchParams(hash);
+    const accessToken = params.get('access_token');
+
+    if (accessToken) {
+      this.spotifyWebApi.setAccessToken(accessToken);
+      localStorage.setItem('spotify_access_token', accessToken);
+      window.history.replaceState(null, '', window.location.pathname);
+    } else {
+      const storedToken = localStorage.getItem('spotify_access_token');
+      if (storedToken) {
+        this.spotifyWebApi.setAccessToken(storedToken);
       } else {
-        console.warn('No access token found in URL. User may need to log in.');
+        console.warn('No access token found in URL or local storage. Redirecting to login.');
+        this.getAccessToken();
       }
     }
   }
@@ -34,7 +44,7 @@ export class SpotifyService {
     }
 
     const clientId = 'eb64fd7b14bb4b68992e0cf779a78070';
-    const redirectUri = 'http://localhost:4200/';
+    const redirectUri = 'http://localhost:4200/'; // Update this to match your app settings
     const scopes = [
       'user-read-private',
       'user-read-email',
@@ -43,13 +53,10 @@ export class SpotifyService {
       'user-top-read',
       'user-follow-read',
       'user-follow-modify',
-
       'user-read-playback-state',
       'user-read-currently-playing',
       'user-modify-playback-state',
       'user-read-recently-played',
-      'user-read-currently-playing',
-
       'playlist-read-private',
       'playlist-read-collaborative',
       'playlist-modify-public',
@@ -68,12 +75,11 @@ export class SpotifyService {
     if (!this.isBrowser) {
       return false;
     }
-    const token = localStorage.getItem('spotify_access_token');
-    return !!token;
+    return !!localStorage.getItem('spotify_access_token');
   }
 
   private ensureLoggedIn(): void {
-    if(!this.isLoggedIn()) {
+    if (!this.isLoggedIn()) {
       console.warn('User is not logged in. Redirecting to login.');
       this.getAccessToken();
       throw new Error('User not logged in');
