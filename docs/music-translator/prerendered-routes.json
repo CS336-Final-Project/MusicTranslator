@@ -1,0 +1,9 @@
+{
+  "routes": [
+    "/",
+    "/listen",
+    "/login",
+    "/profile",
+    "/search"
+  ]
+}

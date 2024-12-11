@@ -13,27 +13,27 @@ import { MusixmatchService } from '../../services/musixmatch/musixmatch.service'
   templateUrl: './listen.component.html',
   styleUrl: './listen.component.css'
 })
-export class ListenComponent implements OnInit {
-  translatedSubtitles: string = ''; // Store subtitles to display
-  error: string = ''; // Store error messages
+export class ListenComponent {
+  // translatedSubtitles: string = ''; // Store subtitles to display
+  // error: string = ''; // Store error messages
 
-  constructor(private musixmatchService: MusixmatchService) {}
+  // constructor(private musixmatchService: MusixmatchService) {}
 
-  ngOnInit(): void {
-    // Call the Musixmatch API on initialization
-    const trackId = 12345678; // Replace with the actual track ID
-    const selectedLanguage = 'en'; // Replace with the desired language code (e.g., 'en' for English)
+  // ngOnInit(): void {
+  //   // Call the Musixmatch API on initialization
+  //   const trackId = 12345678; // Replace with the actual track ID
+  //   const selectedLanguage = 'en'; // Replace with the desired language code (e.g., 'en' for English)
 
-    this.musixmatchService
-      .getTranslatedSubtitles(trackId, selectedLanguage)
-      .subscribe({
-        next: (subtitles) => {
-          this.translatedSubtitles = subtitles;
-        },
-        error: (err) => {
-          console.error('Error fetching subtitles:', err);
-          this.error = err.message || 'Failed to fetch subtitles.';
-        },
-      });
-  }
+  //   this.musixmatchService
+  //     .getTranslatedSubtitles(trackId, selectedLanguage)
+  //     .subscribe({
+  //       next: (subtitles) => {
+  //         this.translatedSubtitles = subtitles;
+  //       },
+  //       error: (err) => {
+  //         console.error('Error fetching subtitles:', err);
+  //         this.error = err.message || 'Failed to fetch subtitles.';
+  //       },
+  //     });
+  // }
 }

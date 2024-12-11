@@ -1,7 +1,7 @@
 import { createRequire } from 'module';const require = createRequire(import.meta.url);
 import {
   NG_VALUE_ACCESSOR
-} from "./chunk-MG4SK6OR.js";
+} from "./chunk-FUUQMVWF.js";
 import {
   Directionality,
   MAT_RIPPLE_GLOBAL_OPTIONS,
@@ -10,8 +10,8 @@ import {
   MatRippleModule,
   Platform,
   RippleState
-} from "./chunk-EBLSF2BC.js";
-import "./chunk-EQVD4OTC.js";
+} from "./chunk-6IG4TZCG.js";
+import "./chunk-7SDN5MLL.js";
 import {
   ANIMATION_MODULE_TYPE,
   ChangeDetectionStrategy,
@@ -36,6 +36,7 @@ import {
   forwardRef,
   inject,
   numberAttribute,
+  require_cjs,
   setClassMetadata,
   signal,
   ɵɵInheritDefinitionFeature,
@@ -71,12 +72,7 @@ import {
   ɵɵtext,
   ɵɵtextInterpolate,
   ɵɵviewQuery
-} from "./chunk-ESXGTZ4R.js";
-import "./chunk-RKKF6KD2.js";
-import {
-  require_cjs
-} from "./chunk-CKN2QDU6.js";
-import "./chunk-VBHR3Y32.js";
+} from "./chunk-ISFFU3ZC.js";
 import {
   __toESM
 } from "./chunk-INDP74QC.js";
