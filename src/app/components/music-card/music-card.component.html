@@ -1,5 +1,10 @@
 <mat-card>
-    <img src="{{ trackImage() }}" alt="Album Cover">
-    <mat-card-header>{{ topTracks() }}</mat-card-header>
-    <mat-card-content>Get the rest of the Track's details</mat-card-content>
-</mat-card>
+    <div class="card-content">
+      <img src="{{ trackImage() }}" alt="Album Cover">
+      <div class="track-details">
+        <mat-card-header>{{ topTracks() }}</mat-card-header>
+        <mat-card-content>Get the rest of the Track's details</mat-card-content>
+      </div>
+    </div>
+  </mat-card>
+  
