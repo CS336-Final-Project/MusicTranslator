@@ -5,3 +5,7 @@ mat-card {
 a {
     text-decoration: none;
 }
+
+img {
+    width: 25%;
+}

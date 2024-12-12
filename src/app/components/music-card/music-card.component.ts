@@ -1,15 +1,16 @@
 import { Component, input } from '@angular/core';
 import { MatCardModule } from '@angular/material/card';
-import { RouterLink } from '@angular/router';
+import { SpotifyService } from '../../services/spotify/spotify.service';
 
 @Component({
   selector: 'app-music-card',
   standalone: true,
-  imports: [MatCardModule, RouterLink],
+  imports: [MatCardModule],
   templateUrl: './music-card.component.html',
   styleUrl: './music-card.component.css'
 })
 export class MusicCardComponent {
+  trackImage = input.required<string>();
   topTracks = input.required<string>();
   //topArtists = input.required<string[]>();
 }

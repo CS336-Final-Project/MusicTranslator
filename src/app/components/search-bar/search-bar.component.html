@@ -1,23 +1,16 @@
-<mat-toolbar class="header-toolbar">
-    <!-- Logo Section -->
-    <div class="logo">
-      <img id="logo" src="../../../assets/tuneLingualLogo.png" alt="TuneLingual Logo" />
-    </div>
-  
-    <!-- Search Input Section -->
-    <div class="search">
-      <input
-        type="search"
-        class="search-input"
-        placeholder="Search..."
-        [(ngModel)]="query"
-        (keyup.enter)="sendSearch()"
-        aria-label="Search"
-      />
-    </div>
-  
-    <!-- Profile Section -->
-    <div class="profile">
-      <img id="profile-pic" src="" alt="Profile picture" />
-    </div>
-  </mat-toolbar>  
+<mat-toolbar class="heder-toolbar">
+  <div class="logo">
+    <img id="logo" src="../../../assets/tuneLingualLogo.png" alt="TuneLingual Logo" />
+  </div>
+  <div class="search">
+    <input
+    type="search"
+    placeholder="Need music?"
+    [(ngModel)]="query"
+    (keyup.enter)="sendSearch()"
+  />
+  </div>
+  <div class="profile">
+    <img id="profile-pic" src="" alt="Profile picture" />
+  </div>
+</mat-toolbar>

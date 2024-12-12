@@ -5,7 +5,8 @@
     {
       <div class="grid-item">
         <app-music-card
-          [topTracks]="tracks">
+          [topTracks]="tracks.name"
+          [trackImage]="tracks.image">
         </app-music-card>
       </div>
     }
@@ -19,7 +20,8 @@
     {
       <div class="grid-item">
         <app-music-card
-          [topTracks]="artist">
+          [topTracks]="artist.name"
+          [trackImage]="artist.image">
         </app-music-card>
       </div>
     }

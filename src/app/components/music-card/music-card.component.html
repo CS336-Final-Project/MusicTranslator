@@ -1,6 +1,5 @@
-<a [routerLink]="['/artists', topTracks()]">
-    <mat-card>
-        <img alt="cover art">
-        <mat-card-header>{{ topTracks() }}</mat-card-header>
-    </mat-card>
-</a>
+<mat-card>
+    <img src="{{ trackImage() }}" alt="Album Cover">
+    <mat-card-header>{{ topTracks() }}</mat-card-header>
+    <mat-card-content>Get the rest of the Track's details</mat-card-content>
+</mat-card>
