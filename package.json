@@ -26,6 +26,8 @@
     "@angular/ssr": "^18.2.12",
     "dotenv": "^16.4.5",
     "express": "^4.18.2",
+    "genius-api": "^0.4.1",
+    "genius-lyrics-api": "^3.2.1",
     "musicmatch": "^0.3.2",
     "musixmatch": "^0.1.6",
     "rxjs": "~7.8.0",

@@ -186,10 +186,25 @@ export class SpotifyService {
       });
   }
 
-  /*Categories*/
-  //Get Several Browse Categories
-  //Get Single Browse Category
-
+  // Playlist
+  getPlaylist(playlistID: string, options?: object): Promise<{ name: string; genre: string }[]> {
+    if (!this.isLoggedIn()) {
+      console.warn("User is not logged in. Redirecting to login.");
+      this.getAccessToken();
+      return Promise.reject("User not logged in");
+    }
+  
+    return this.spotifyWebApi.getPlaylist(playlistID, options)
+      .then((response) => response?.tracks?.items?.map((track) => ({
+        name: track?.track?.name || "Unknown",
+        // image: track?.track?.playlist?.images?.[0]?.url || "",
+        genre: "Unknown", // Replace with a valid genre property if available
+      })) || [])
+      .catch((error) => {
+        console.error("Error fetching playlist data:", error.message || error);
+        return [];
+      });
+  }
 
   /*Player*/
   playTrack(options: {uris: string[]}): Promise<void> {

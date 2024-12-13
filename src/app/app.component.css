@@ -1,14 +1,14 @@
 html, body {
     height: 100%;
     margin: 0;
-    background-color: black !important;
-    color: white !important;
+    /* background-color: black !important;
+    color: white !important; */
 }
 
-* {
+/* {
     background-color: black !important;
     color: white !important;
-}
+} */
 
 .wholePage {
     height: 100%;

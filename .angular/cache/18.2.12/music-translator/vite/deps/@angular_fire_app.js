@@ -26,8 +26,9 @@ import {
   provideFirebaseApp,
   registerVersion2 as registerVersion,
   setLogLevel
-} from "./chunk-FAYB3UN4.js";
-import "./chunk-KTXKYD3Z.js";
+} from "./chunk-P4LHS2KC.js";
+import "./chunk-3HOGBIRV.js";
+import "./chunk-2QQLL3PY.js";
 import "./chunk-K4KU7J5H.js";
 export {
   FirebaseApp,

@@ -4,8 +4,8 @@ mat-toolbar {
     justify-content: space-between;
     padding: 10px;
     height: 100%;
-    background-color: black;
-    color: white;
+    /* background-color: black;
+    color: white; */
 }
 
 .trackInfo {

@@ -1,6 +1,7 @@
 <a [routerLink]="['/category', category()]">
     <mat-card>
-        <img alt="cover art">
+        <img src="{{ categoryImage() }}" alt="cover art">
         <mat-card-header>{{ category() }}</mat-card-header>
+        <mat-card-content>{{ playlistName() }}</mat-card-content>
     </mat-card>
 </a>
