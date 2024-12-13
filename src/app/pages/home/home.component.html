@@ -5,8 +5,9 @@
     {
       <div class="grid-item">
         <app-music-card
-          [topTracks]="tracks.name"
-          [trackImage]="tracks.image">
+          [trackName]="tracks.name"
+          [trackImage]="tracks.image"
+          [trackArtist]="tracks.artist">
         </app-music-card>
       </div>
     }
@@ -19,10 +20,11 @@
     @for (artist of usersTopArtists; track $index)
     {
       <div class="grid-item">
-        <app-music-card
-          [topTracks]="artist.name"
-          [trackImage]="artist.image">
-        </app-music-card>
+        <app-artist-card
+          [artistName]="artist.name"
+          [artistImage]="artist.image"
+          [artistGenre]="artist.genre">
+        </app-artist-card>
       </div>
     }
   </div>

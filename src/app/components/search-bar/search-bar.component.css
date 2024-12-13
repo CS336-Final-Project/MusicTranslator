@@ -4,6 +4,8 @@
     justify-content: space-between;
     padding: 10px 20px;
     height: 100%;
+    background-color: black;
+    color: white;
 }
 
 .logo {
@@ -41,8 +43,8 @@
 }
 
 #profile-pic {
-    height: 40px;
-    width: 40px;
+    height: 80px;
+    width: 80px;
     border-radius: 50%;
     border: 2px solid black;
     object-fit: cover;

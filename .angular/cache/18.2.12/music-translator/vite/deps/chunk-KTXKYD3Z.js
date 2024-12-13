@@ -27365,7 +27365,6 @@ if (typeof ngDevMode !== "undefined" && ngDevMode) {
 }
 
 export {
-  SIGNAL,
   __rest,
   Subscription,
   pipe,
@@ -27419,6 +27418,7 @@ export {
   switchMap,
   takeUntil,
   tap,
+  SIGNAL,
   XSS_SECURITY_URL,
   RuntimeError,
   formatRuntimeError,
@@ -27931,4 +27931,4 @@ export {
    * found in the LICENSE file at https://angular.dev/license
    *)
 */
-//# sourceMappingURL=chunk-IDNZJ4CU.js.map
+//# sourceMappingURL=chunk-KTXKYD3Z.js.map

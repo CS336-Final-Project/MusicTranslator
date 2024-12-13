@@ -12,4 +12,5 @@ import { RouterLink } from '@angular/router';
 export class ArtistCardComponent {
   artistImage = input.required<string>();
   artistName = input.required<string>();
+  artistGenre = input.required<string>();
 }

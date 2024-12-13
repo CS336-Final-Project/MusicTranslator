@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
 })
-export class MusixmatchService {
+export class MusixMatchService {
   private readonly apiKey: string;
   private readonly baseURL: string;
 
@@ -14,13 +14,18 @@ export class MusixmatchService {
     this.baseURL = 'https://api.musixmatch.com/ws/1.1';
   }
 
-  getTranslatedSubtitle(commontrackID: number, selectedLanguage: string): Observable<any> {
+  getTranslatedSubtitle(
+    selectedLanguage: string,
+    commontrackID: number,
+    minCompleted: number = 1 // Default to fully completed translations
+  ): Observable<any> {
     const url = `${this.baseURL}/track.subtitle.translation.get`;
-    const params = {
-      commontrack_id: commontrackID,
-      selected_language: selectedLanguage,
-      apikey: this.apiKey,
-    };
+
+    const params = new HttpParams()
+      .set('commontrack_id', commontrackID.toString())
+      .set('selected_language', selectedLanguage)
+      .set('min_completed', minCompleted.toString())
+      .set('apikey', this.apiKey);
 
     return this.http.get(url, { params });
   }

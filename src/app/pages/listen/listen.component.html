@@ -3,5 +3,20 @@
 <p>Trying out MusixMatch API</p>
 <p>Song: Birds of a Feather by Billie Eilish</p>
 
-<p *ngIf="translatedSubtitles">Translated Subtitles: {{ translatedSubtitles }}</p>
-<p *ngIf="error" class="error">Error: {{ error }}</p>
+<div *ngIf="isLoading">
+  <p>Loading subtitles...</p>
+</div>
+
+<div *ngIf="!isLoading">
+  <div *ngIf="!error">
+    <p><strong>Original Subtitles:</strong></p>
+    <p>{{ originalSubtitles }}</p>
+
+    <p><strong>Translated Subtitles:</strong></p>
+    <p>{{ translatedSubtitles }}</p>
+  </div>
+
+  <div *ngIf="error" class="error">
+    <p>Error: {{ error }}</p>
+  </div>
+</div>

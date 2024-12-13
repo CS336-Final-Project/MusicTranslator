@@ -186,23 +186,29 @@ export class SpotifyService {
       });
   }
 
-  /*Artist Info*/
-  //Get Artist
-  //Get Several Artists
-  //Get Artist's Albumns
-  //Get Artist's Top Tracks
-  //Get Artist's Related Artists
-
   /*Categories*/
   //Get Several Browse Categories
   //Get Single Browse Category
 
-  /*Genres*/
-  //Get Available Genre Seeds
 
   /*Player*/
+  playTrack(options: {uris: string[]}): Promise<void> {
+    if (!this.isLoggedIn()) {
+      console.warn("User is not logged in. Redirecting to login.");
+      this.getAccessToken();
+      return Promise.reject("User not logged in");
+    }
+    return this.spotifyWebApi
+    .play(options)
+    .then(() => {
+      console.log("Playback started successfully");
+    })
+    .catch((error) => {
+      console.error("Error starting playback:", error);
+      throw error; // Propagate the error for further handling if needed
+    });
 
-  /*Playlists*/
+  }
 
   /*Search*/
   getSearchRequest(
@@ -337,30 +343,42 @@ export class SpotifyService {
   }
 
   /*User Info*/
-  getUserName(): Promise<string> {
+  getUser(): Promise<{ display_name: string; image: string } | string> {
     if (!this.isLoggedIn()) {
       console.warn("User is not logged in. Redirecting to login.");
       this.getAccessToken();
-      return Promise.resolve("");
+      return Promise.resolve("User not logged in.");
     }
-
+  
     const token = localStorage.getItem("spotify_access_token");
-    this.spotifyWebApi.setAccessToken(token!);
-
+    if (!token) {
+      console.error("No access token found. Redirecting to login.");
+      this.getAccessToken();
+      return Promise.resolve("No access token found.");
+    }
+  
+    this.spotifyWebApi.setAccessToken(token);
+  
     return this.spotifyWebApi
       .getMe()
-      .then((response) => response.display_name || "")
-      .catch((error) => {
-        console.error("Error fetching user name:", error);
+      .then((response: any) => {
+        // Ensure response has required fields
+        const displayName = response.display_name || "Unknown User";
+        const image = response.images?.[0]?.url || ""; // Handle case where images may be undefined
+        return { display_name: displayName, image };
+      })
+      .catch((error: any) => {
+        console.error("Error fetching user information:", error);
         if (error.status === 401) {
           console.log("Access token expired. Redirecting to login.");
           this.getAccessToken();
         }
-        return "";
+        return "Error fetching user information.";
       });
   }
+  
 
-  getUsersTopArtists(): Promise<{ name: string; image: string }[]> {
+  getUsersTopArtists(): Promise<{ name: string; image: string; genre: string; }[]> {
     if (!this.isLoggedIn()) {
       console.warn("User is not logged in. Redirecting to login.");
       this.getAccessToken();
@@ -372,7 +390,8 @@ export class SpotifyService {
       .then((response) =>
         response.items.map((item) => ({
           name: item.name,
-          image: item.images?.[0]?.url || "", // Use the first image or an empty string if no images exist
+          image: item.images?.[0]?.url || "",
+          genre: item.genres?.[0] || "Unknown",
         }))
       )
       .catch((error) => {
@@ -382,7 +401,7 @@ export class SpotifyService {
   }
   
 
-  getUsersTopTracks(): Promise<Array<{ name: string; image: string }>> {
+  getUsersTopTracks(): Promise<{ name: string; image: string; artist: string; }[]> {
     if (!this.isLoggedIn()) {
       console.warn("User is not logged in. Redirecting to login.");
       this.getAccessToken();
@@ -394,7 +413,8 @@ export class SpotifyService {
       .then((response) =>
         response.items.map((item) => ({
           name: item.name, // Track name
-          image: item.album.images?.[0]?.url || "", // First image from the album, or an empty string
+          image: item.album.images?.[0]?.url || "",
+          artist: item.artists ?.[0]?.name || "Unknown", 
         }))
       )
       .catch((error) => {

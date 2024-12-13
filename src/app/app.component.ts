@@ -17,10 +17,15 @@ import { PlaybackComponent } from './components/playback/playback.component';
 })
 export class AppComponent {
   title = 'musicTranslator';
+  isLoggedIn = false;
 
   searchResults: string[] = [];
 
   handleSearchResults(results: string[]) {
     this.searchResults = results;
+  }
+
+  handleLogin() {
+    this.isLoggedIn = true;
   }
 }

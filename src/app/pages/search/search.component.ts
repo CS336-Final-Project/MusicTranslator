@@ -36,13 +36,13 @@ export class SearchComponent implements OnInit {
       this.results = response.map((item: { name: string }) => item.name);
       console.log('Search results:', this.results);
 
-      const userID = await this.spotifyService.getUserName();
+      const userID = await this.spotifyService.getUser();
       const recentSearch = {
         query: this.query.trim(),
         timestamp: Timestamp.now(),
       };
 
-      await this.fireStore.addRecentSearch(userID, recentSearch);
+      // await this.fireStore.addRecentSearch(userID, recentSearch);
       console.log('Added to recent searches:', recentSearch);
     } catch (error) {
       console.error('Error during search:', error);
