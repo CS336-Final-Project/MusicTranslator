@@ -1,4 +1,4 @@
-<mat-toolbar class="heder-toolbar">
+<mat-toolbar class="header-toolbar">
   <div class="logo">
     <img id="logo" src="../../../assets/tuneLingualLogo.png" alt="TuneLingual Logo" />
   </div>
@@ -8,9 +8,12 @@
     placeholder="Need music?"
     [(ngModel)]="query"
     (keyup.enter)="sendSearch()"
+    onfocus="this.value=''"
   />
   </div>
   <div class="profile">
-    <img id="profile-pic" src="" alt="Profile picture" />
+    <a routerLink="/profile">
+      <img id="profile-pic" src="{{user?.image}}" alt="Profile picture" />
+    </a>
   </div>
 </mat-toolbar>

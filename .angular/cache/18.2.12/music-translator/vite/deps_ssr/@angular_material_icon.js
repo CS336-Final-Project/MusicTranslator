@@ -1,16 +1,16 @@
 import { createRequire } from 'module';const require = createRequire(import.meta.url);
 import {
   DomSanitizer
-} from "./chunk-GKBHAHGW.js";
+} from "./chunk-T2UQSN2L.js";
 import {
   HttpClient
-} from "./chunk-22EW6O5G.js";
+} from "./chunk-J7TK5KRS.js";
 import {
   MatCommonModule
-} from "./chunk-6IG4TZCG.js";
+} from "./chunk-LUNLUADZ.js";
 import {
   DOCUMENT
-} from "./chunk-7SDN5MLL.js";
+} from "./chunk-V7LYLKLS.js";
 import {
   Attribute,
   ChangeDetectionStrategy,
@@ -28,8 +28,6 @@ import {
   ViewEncapsulation$1,
   booleanAttribute,
   inject,
-  require_cjs,
-  require_operators,
   setClassMetadata,
   ɵɵInputTransformsFeature,
   ɵɵStandaloneFeature,
@@ -45,7 +43,14 @@ import {
   ɵɵinjectAttribute,
   ɵɵprojection,
   ɵɵprojectionDef
-} from "./chunk-ISFFU3ZC.js";
+} from "./chunk-N64SIUQ6.js";
+import {
+  require_cjs
+} from "./chunk-CKN2QDU6.js";
+import {
+  require_operators
+} from "./chunk-RKKF6KD2.js";
+import "./chunk-VBHR3Y32.js";
 import {
   __toESM
 } from "./chunk-INDP74QC.js";

@@ -1,11 +1,19 @@
 <div>
-    <h1>Search Results</h1>
-    <p>Here are the results</p>
-    <!-- <ul *ngIf="results.length; else noResults">
-      <li *ngFor="let result of results">{{ result }}</li>
-    </ul>
-    <ng-template #noResults>
-      <p>No results found.</p>
-    </ng-template> -->
-  </div>
-  
+  <h1>Search Results</h1>
+
+  <p>Search Results:</p>
+  @for (result of searchResults; track $index){
+    <app-music-card
+    [trackImage]="result.image"
+    [trackName]="result.name"
+    [trackArtist]="result.artist"
+    [trackID]="result.trackID"
+    [isrc]="result.isrc"></app-music-card>
+  }
+
+  @if (searchResults.length === 0) {
+    <div>
+      No Results Found.
+    </div>
+  }
+</div>

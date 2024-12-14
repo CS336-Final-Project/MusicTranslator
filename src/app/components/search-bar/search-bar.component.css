@@ -4,6 +4,8 @@
     justify-content: space-between;
     padding: 10px 20px;
     height: 100%;
+    /* background-color: black;
+    color: white; */
 }
 
 .logo {
@@ -27,7 +29,7 @@
 
 .search input {
     width: 60%;
-    max-width: 400px;
+    max-width: 650px;
     padding: 8px 12px;
     border-radius: 20px;
     font-size: 16px;
@@ -41,8 +43,8 @@
 }
 
 #profile-pic {
-    height: 40px;
-    width: 40px;
+    height: 70px;
+    width: 70px;
     border-radius: 50%;
     border: 2px solid black;
     object-fit: cover;

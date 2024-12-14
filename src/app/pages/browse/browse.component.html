@@ -1,13 +1,39 @@
 <h4>Browse by Language</h4>
-<app-category-card
-[category]="'spanish'">Spanish</app-category-card>
-<app-category-card
-[category]="'chinese'">Chinese</app-category-card>
-<app-category-card
-[category]="'french'">French</app-category-card>
-<app-category-card
-[category]="'italian'">Italian</app-category-card>
-<app-category-card
-[category]="'hindi'">Hindi</app-category-card>
-<app-category-card
-[category]="'russian'">Russian</app-category-card>
+<div class="grid-container">
+    <div class="grid-item">
+        <app-category-card
+        [category]="'Spanish'"
+        [playlistID]="'0x5sdZSd4GbYmAucCshEsO'"
+        [backgroundColor]="'green'"></app-category-card>
+    </div>
+    <div class="grid-item" id="chinese">
+        <app-category-card
+        [category]="'Chinese'"
+        [playlistID]="'0cRMik0zbSVLh1aRiKfnyz'"
+        [backgroundColor]="'red'"></app-category-card>
+    </div>
+    <div class="grid-item" id="french">
+        <app-category-card
+        [category]="'French'"
+        [playlistID]="'5MSrDuE6MNY5POIrIUbMPi'"
+        [backgroundColor]="'blue'"></app-category-card>
+    </div>
+    <div class="grid-item" id="italian">
+        <app-category-card
+        [category]="'Italian'"
+        [playlistID]="'0169kCfQZmskX7UETTN5yO'"
+        [backgroundColor]="'orange'"></app-category-card>
+    </div>
+    <div class="grid-item" id="hindi">
+        <app-category-card
+        [category]="'Hindi'"
+        [playlistID]="'0i2S0eEdftTrmLKueMWUKX'"
+        [backgroundColor]="'purple'"></app-category-card>
+    </div>
+    <div class="grid-item" id="russian">
+        <app-category-card
+        [category]="'Russian'"
+        [playlistID]="'5q0MbTyQ0o954AVRhlAwMB'"
+        [backgroundColor]="'white'"></app-category-card>
+    </div>
+</div>

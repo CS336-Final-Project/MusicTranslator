@@ -1,0 +1,28 @@
+.lyrics-container {
+    display: flex;
+    gap: 20px;
+    margin-top: 20px;
+  }
+  
+  .lyrics-column {
+    flex: 1;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+  }
+  
+  .lyrics-column h3 {
+    margin-top: 0;
+  }
+  
+  pre {
+    white-space: pre-wrap;
+    word-wrap: break-word;
+  }
+  
+  .error {
+    color: red;
+    font-weight: bold;
+  }
+  

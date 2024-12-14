@@ -1,7 +1,36 @@
-<p>Listen page works!</p>
+<div>
+  @if(isLoading){
+    <div>
+      Loading data...
+    </div>
+  }
 
-<p>Trying out MusixMatch API</p>
-<p>Song: Birds of a Feather by Billie Eilish</p>
+  @if (!isLoading && trackName && trackArtist){
+    <div>
+      <h3>{{ trackName }} by {{ trackArtist }}</h3>
+    </div>
+  }
 
-<p *ngIf="translatedSubtitles">Translated Subtitles: {{ translatedSubtitles }}</p>
-<p *ngIf="error" class="error">Error: {{ error }}</p>
+  @if (!isLoading && (originalLyrics || translatedLyrics)) {
+    <div class="lyrics-container">
+      @if(originalLyrics){
+        <div class="lyrics-column">
+          <h3>Original Lyrics</h3>
+          <pre>{{ originalLyrics }}</pre>    
+        </div>
+      }
+      @if(translatedLyrics){
+        <div class="lyrics-column">
+          <h3>Translated Lyrics</h3>
+          <pre>{{ translatedLyrics }}</pre>
+        </div>
+      }
+    </div>
+  }
+
+  @if(errorMessage){
+    <div class="error">
+      <p>Error: {{ errorMessage }}</p>
+    </div>
+  }
+</div>

@@ -1,1 +1,66 @@
-<p>profile works!</p>
+<p>{{ user?.display_name }}</p>
+
+<!-- User Profile Information -->
+<div>
+    <label for="email">Email:</label>
+    <p id="email">{{ user?.email }}</p>
+</div>
+<div>
+    <label for="username">Username:</label>
+    <p id="username">{{ user?.id }}</p>
+</div>
+
+<!-- Form for Language Preferences -->
+<div>
+    <label for="primaryLanguage">Primary Language:</label>
+    <select name="primaryLanguage" id="primaryLanguage" aria-label="Select your primary language">
+        <option value="English">English</option>
+        <option value="Spanish">Spanish</option>
+        <option value="Chinese">Chinese</option>
+        <option value="French">French</option>
+        <option value="Italian">Italian</option>
+    </select>
+</div>
+<div>
+    <label for="learning">Language I want to learn:</label>
+    <select name="learning" id="learning" aria-label="Select the language you want to learn">
+        <option value="English">English</option>
+        <option value="Spanish">Spanish</option>
+        <option value="Chinese">Chinese</option>
+        <option value="French">French</option>
+        <option value="Italian">Italian</option>
+    </select>
+</div>
+<button type="button">Save Preferences</button>
+
+<!-- Theme Selection -->
+<div>
+    <label for="theme">Theme:</label>
+    <select id="theme" aria-label="Select theme">
+        <option value="light">Light</option>
+        <option value="dark">Dark</option>
+    </select>
+</div>
+
+<!-- Refresh Token Button -->
+<button 
+      mat-raised-button 
+      color="primary" 
+      (click)="manualTokenRefresh()" 
+      [disabled]="isTokenRefreshing"
+    >
+      {{ isTokenRefreshing ? 'Refreshing...' : 'Refresh Token' }}
+</button>
+
+<!-- Logout Button -->
+<button type="button">Logout</button>
+
+<!-- Token Expiry Timer -->
+<!-- <p *ngIf="tokenExpiryTime">Token expires in: {{ tokenExpiryTime }}</p> -->
+
+<!-- Example Output Section -->
+<div>
+    <h3>Selected Preferences</h3>
+    <p>Primary Language: NEED TO IMPLEMENT</p>
+    <p>Learning Language: NEED TO IMPLEMENT</p>
+</div>

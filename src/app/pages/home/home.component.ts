@@ -5,31 +5,41 @@ import { MatIconModule } from "@angular/material/icon";
 import { CommonModule } from "@angular/common";
 import { SpotifyService } from "../../services/spotify/spotify.service";
 import { MusicCardComponent } from "../../components/music-card/music-card.component";
+import { ArtistCardComponent } from "../../components/artist-card/artist-card.component";
+
 
 @Component({
   selector: "app-home",
   standalone: true,
   imports: [
-    RouterOutlet,
     MatToolbarModule,
     MatIconModule,
     CommonModule,
     MusicCardComponent,
+    ArtistCardComponent
   ],
   templateUrl: "./home.component.html",
   styleUrls: ["./home.component.css"],
 })
 export class HomeComponent implements OnInit {
-  userName: string = "";
-  usersTopArtists: Array<{ name: string; image: string }> = []; // Updated type
-  usersTopTracks: Array<{ name: string; image: string}> = [];
+  user: { display_name: string; image: string } | null = null;
+  usersTopArtists: Array<{ name: string; image: string, genre: string, id: string }> = [];
+  usersTopTracks: Array<{ name: string; image: string, artist: string, id: string, isrc: string}> = [];
   usersRecentlyPlayedTracks: Array<string> = [];
+  errorMessage: string = "";
 
   constructor(private spotifyService: SpotifyService) {}
 
   ngOnInit(): void {
     if (this.spotifyService.isLoggedIn()) {
-      this.spotifyService.getUserName().then((name) => (this.userName = name));
+      this.spotifyService.getUser()
+        .then((userInfo) => {
+          if (typeof userInfo === "string") {
+            this.errorMessage = userInfo;
+          } else {
+            this.user = userInfo;
+          }
+        });
       this.spotifyService
         .getUsersTopArtists()
         .then((topArtists) => (this.usersTopArtists = topArtists)); // Updated logic

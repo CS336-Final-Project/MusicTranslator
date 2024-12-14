@@ -1,0 +1,11 @@
+<a [routerLink]="['/artists', artistID()]">
+    <mat-card>
+      <div class="card-content">
+        <img src="{{ artistImage() }}" alt="Album Cover">
+        <div class="track-details">
+          <mat-card-header>{{ artistName() }}</mat-card-header>
+          <mat-card-content>Genre: {{ artistGenre() }}</mat-card-content>
+        </div>
+      </div>
+    </mat-card>
+  </a>

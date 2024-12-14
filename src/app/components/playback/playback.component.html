@@ -1,19 +1,21 @@
 <mat-toolbar class="playback-toolbar">
-    <p class="track-info">Current Playing Track: NEED TO REPLACE</p>
+    <div class="songPlaying">
+        <p class="track-info">Currently Playing: {{currentTrack}}</p>
+    </div>
     <div class="middle">
         <div class="playbackButtons">
-            <mat-icon aria-hidden="false" fontIcon="skip_previous"></mat-icon>
-            <mat-icon aria-hidden="false" fontIcon="play_circle" class="play-button"></mat-icon>
-            <mat-icon aria-hidden="false" fontIcon="pause_circle" class="pause-button" style="display: none;"></mat-icon>
-            <mat-icon aria-hidden="false" fontIcon="skip_next"></mat-icon>
-        </div>
-        <div class="trackTime">
-            <mat-slider id="timeSlider" class="slider">
-                <input matSliderThumb>
-            </mat-slider>
+            <button>
+                <mat-icon aria-hidden="false" fontIcon="replay_10"></mat-icon>
+            </button>
+            <button>
+                <mat-icon aria-hidden="false" fontIcon="play_circle" class="play-button"></mat-icon>
+            </button>
+            <button>
+                <mat-icon aria-hidden="false" fontIcon="forward_10"></mat-icon>
+            </button>
         </div>
     </div>
-    <mat-slider id="volumeSlider" class="slider">
-        <input matSliderThumb>
-    </mat-slider>
+    <div class="volume">
+        <!-- Volume slider or controls -->
+    </div>
 </mat-toolbar>

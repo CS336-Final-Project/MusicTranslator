@@ -10,4 +10,6 @@ import { RouterLink } from '@angular/router';
 })
 export class CategoryCardComponent {
   category = input.required<string>();
+  playlistID = input.required<string>();
+  backgroundColor = input.required<string>();
 }

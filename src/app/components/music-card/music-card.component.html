@@ -1,5 +1,11 @@
-<mat-card>
-    <img src="{{ trackImage() }}" alt="Album Cover">
-    <mat-card-header>{{ topTracks() }}</mat-card-header>
-    <mat-card-content>Get the rest of the Track's details</mat-card-content>
-</mat-card>
+<a [routerLink]="['/listen', trackID(), isrc()]">
+  <mat-card>
+    <div class="card-content">
+      <img src="{{ trackImage() }}" alt="Album Cover">
+      <div class="track-details">
+        <mat-card-header>{{ trackName() }}</mat-card-header>
+        <mat-card-content>{{ trackArtist() }}</mat-card-content>
+      </div>
+    </div>
+  </mat-card>
+</a>

@@ -1,7 +1,14 @@
 html, body {
     height: 100%;
-    margin: 0; /* Remove any default margins */
+    margin: 0;
+    /* background-color: black !important;
+    color: white !important; */
 }
+
+/* {
+    background-color: black !important;
+    color: white !important;
+} */
 
 .wholePage {
     height: 100%;
@@ -27,7 +34,7 @@ mat-sidenav-content {
 }
 
 #topToolBar {
-    border: 2px solid green;
+    border: 4px solid green;
     height: 8%;
 }
 
@@ -39,6 +46,7 @@ mat-sidenav-content {
 .mat-list-item {
     display: flex; /* Ensures proper alignment of icon and text */
     align-items: center; /* Vertically align items */
+    text-decoration: white;
 }
 
 .mat-list-item .icon {
