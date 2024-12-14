@@ -1,4 +1,4 @@
-mat-card {
+/* mat-card {
     width: 100%;
     height: 220px;
     display: flex;
@@ -17,4 +17,34 @@ mat-card {
   #spanish {
     background-color: green;
   }
-  
+   */
+
+   mat-card {
+    width: 100%;
+    height: 220px;
+    display: flex;
+    flex-direction: column;
+  }
+   
+  mat-card-header {
+    display: flex;
+    justify-content: center;
+    color: black; /* Use the parent's color */
+  }
+  mat-card-header:hover {
+    color: #007bff; /* Optional: Add a hover color, such as a shade of blue */
+    text-decoration: underline; /* Optional: Add underline on hover */
+  }
+   
+  .card-content {
+    display: flex;
+    align-items: center;
+  }
+   
+  a {
+    text-decoration: none;
+  }
+   
+  #spanish {
+    background-color: green;
+  }
