@@ -1,11 +1,13 @@
 <div>
-    <h1>Search Results</h1>
-    <p>Here are the results</p>
-    <!-- <ul *ngIf="results.length; else noResults">
-      <li *ngFor="let result of results">{{ result }}</li>
-    </ul>
-    <ng-template #noResults>
-      <p>No results found.</p>
-    </ng-template> -->
+  <h1>Search Results</h1>
+  <p>Here are the results</p>
+
+  <!-- Ensure proper syntax -->
+
+  <p>Search Results:</p>
+  <div *ngFor="let result of searchResults" class="search-result">
+    {{ result.name }} ({{ result.type }})
   </div>
-  
+
+  <div *ngIf="searchResults.length === 0">No results found.</div>
+</div>
