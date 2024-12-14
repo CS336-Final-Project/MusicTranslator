@@ -55,6 +55,7 @@ export class SpotifyService {
 
     const clientId = "eb64fd7b14bb4b68992e0cf779a78070";
     const redirectUri = "http://localhost:4200/";
+    //const redirectUri = "https://tunelingual.web.app"
     const scopes = [
       "user-read-private",
       "user-read-email",
