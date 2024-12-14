@@ -37,7 +37,7 @@ import {
   ɵgetAllInstancesOf,
   ɵgetDefaultInstanceOf,
   ɵzoneWrap
-} from "./chunk-KKZFE7YV.js";
+} from "./chunk-YDQWHXA7.js";
 import {
   InjectionToken,
   Injector,
@@ -45,12 +45,14 @@ import {
   NgZone,
   Optional,
   makeEnvironmentProviders,
-  require_cjs,
   require_operators,
   setClassMetadata,
   ɵɵdefineInjector,
   ɵɵdefineNgModule
-} from "./chunk-ISFFU3ZC.js";
+} from "./chunk-3RGXYT6M.js";
+import {
+  require_cjs
+} from "./chunk-4N7LKKWO.js";
 import {
   __async,
   __asyncGenerator,
