@@ -1,14 +1,16 @@
 html, body {
     height: 100%;
     margin: 0;
-    /* background-color: black !important;
-    color: white !important; */
+    background-color: #101C39;
+    color: white !important;
+    font-family: 'Arial', sans-serif;
 }
 
-/* {
-    background-color: black !important;
+* {
+    background-color: #101C39;
     color: white !important;
-} */
+    box-sizing: border-box;
+}
 
 .wholePage {
     height: 100%;
@@ -16,41 +18,102 @@ html, body {
     flex-direction: column;
 }
 
+#topToolBar {
+    height: 9%;
+    background-color: #1A2B4D; /* Subtle contrast */
+    display: flex;
+    align-items: center;
+    border-bottom: 5px solid #2A3C5F;
+}
+
 .sidenav-container {
-    flex: 1; /* Allow the container to take up remaining height */
+    flex: 1;
     display: flex;
     flex-direction: row;
+    background-color: #101C39;
 }
 
 mat-sidenav {
-    width: 200px;
-    border: 3px solid red;
+    width: 240px;
+    background-color: #303030; /* Slightly lighter for distinction */
+    color: white;
+    padding-top: 20px;
+    border-right: 5px solid #2A3C5F;
 }
 
 mat-sidenav-content {
-    flex: 1; /* Make content fill the available space */
-    padding: 16px;
-    border: 3px solid blue;
+    flex: 1; 
+    padding: 24px;
+    background-color: #101C39;
+    overflow: auto; /* Ensures scrollable content if necessary */
 }
 
-#topToolBar {
-    border: 4px solid green;
-    height: 8%;
+mat-nav-list {
+    padding: 0;
+    margin: 0;
+    list-style: none;
 }
+
+a[mat-list-item] {
+    display: flex;
+    align-items: center;
+    padding: 12px 16px;
+    color: white;
+    text-decoration: none;
+    font-size: 16px;
+    font-weight: 500;
+    border-radius: 4px;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.custom-item {
+    background-color: #303030;
+    color: white !important;
+  }
+  
+
+a[mat-list-item]:hover {
+    background-color: #303030;
+    color: #E0E4F1; /* Lighter text color for hover */
+}
+
+a[mat-list-item]:active {
+    background-color: #303030;
+}
+
+a[mat-list-item][routerLinkActive] {
+    background-color: #303030;
+    font-weight: bold;
+}
+
+.custom-nav a.mat-list-item {
+    background-color: green;
+    color: white;
+  }  
+
+  mat-nav-list a.mat-list-item {
+    background-color: #303030 !important;
+    color: white !important;
+  }  
 
 #playback {
-    height: 8%;
-    border: 2px solid orange;
+    height: 9%;
+    background-color: #1A2B4D;
+    display: flex;
+    align-items: center;
+    border-top: 5px solid #2A3C5F;
 }
 
 .mat-list-item {
-    display: flex; /* Ensures proper alignment of icon and text */
-    align-items: center; /* Vertically align items */
-    text-decoration: white;
+    display: flex;
+    align-items: center;
+    background-color: #303030;
+    color: white !important;
+    font-size: 16px;
 }
 
 .mat-list-item .icon {
-    margin-right: 8px; /* Adds space between the icon and the text */
-    font-size: 24px; /* Adjust the icon size if necessary */
-    color: currentColor; /* Matches the text color */
+    margin-right: 12px;
+    font-size: 20px;
+    color: #E0E4F1;
 }

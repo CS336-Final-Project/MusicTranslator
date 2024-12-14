@@ -4,8 +4,8 @@
     justify-content: space-between;
     padding: 10px 20px;
     height: 100%;
-    /* background-color: black;
-    color: white; */
+    background-color: #101C39;
+    color: white;
 }
 
 .logo {
@@ -35,6 +35,15 @@
     font-size: 16px;
 }
 
+input {
+    background-color: #303030;
+    color: white;
+}
+
+input::placeholder {
+    color: white;
+}
+
 .profile {
     flex: 0 0 auto;
     display: flex;
@@ -46,7 +55,7 @@
     height: 70px;
     width: 70px;
     border-radius: 50%;
-    border: 2px solid black;
+    border: 2px #303030;
     object-fit: cover;
     cursor: pointer;
 }

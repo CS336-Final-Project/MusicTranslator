@@ -3,12 +3,14 @@
 
   <p>Search Results:</p>
   @for (result of searchResults; track $index){
-    <app-music-card
-    [trackImage]="result.image"
-    [trackName]="result.name"
-    [trackArtist]="result.artist"
-    [trackID]="result.trackID"
-    [isrc]="result.isrc"></app-music-card>
+    <div class="searchResults">
+      <app-music-card
+      [trackImage]="result.image"
+      [trackName]="result.name"
+      [trackArtist]="result.artist"
+      [trackID]="result.trackID"
+      [isrc]="result.isrc"></app-music-card>
+    </div>
   }
 
   @if (searchResults.length === 0) {

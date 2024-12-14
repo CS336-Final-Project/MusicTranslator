@@ -1,36 +1,34 @@
 mat-toolbar {
     display: flex;
     align-items: center;
-    justify-content: space-between; /* Push the left and right sections apart */
+    justify-content: space-between;
     padding: 10px;
     height: 100%;
-    position: relative; /* Allows absolute positioning of the middle section */
+    position: relative;
+    background-color: #101C39;
+    color: white;
 }
 
-/* Center the middle section */
 .middle {
     position: absolute;
     left: 50%;
-    transform: translateX(-50%); /* Ensures perfect centering */
+    transform: translateX(-50%);
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: 10px; /* Space between playback buttons */
+    gap: 10px;
 }
 
-/* Left Section */
 .songPlaying {
     flex: 0;
     text-align: left;
 }
 
-/* Right Section */
 .volume {
     flex: 0;
     text-align: right;
 }
 
-/* Playback Buttons */
 .playbackButtons {
     display: flex;
     align-items: center;

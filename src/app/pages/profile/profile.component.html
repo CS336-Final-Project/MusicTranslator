@@ -1,6 +1,5 @@
-<p>{{ user?.display_name }}</p>
+<h3 style="color: white;">{{ user?.display_name }}</h3>
 
-<!-- User Profile Information -->
 <div>
     <label for="email">Email:</label>
     <p id="email">{{ user?.email }}</p>
@@ -10,7 +9,6 @@
     <p id="username">{{ user?.id }}</p>
 </div>
 
-<!-- Form for Language Preferences -->
 <div>
     <label for="primaryLanguage">Primary Language:</label>
     <select name="primaryLanguage" id="primaryLanguage" aria-label="Select your primary language">
@@ -33,16 +31,6 @@
 </div>
 <button type="button">Save Preferences</button>
 
-<!-- Theme Selection -->
-<div>
-    <label for="theme">Theme:</label>
-    <select id="theme" aria-label="Select theme">
-        <option value="light">Light</option>
-        <option value="dark">Dark</option>
-    </select>
-</div>
-
-<!-- Refresh Token Button -->
 <button 
       mat-raised-button 
       color="primary" 
@@ -52,13 +40,8 @@
       {{ isTokenRefreshing ? 'Refreshing...' : 'Refresh Token' }}
 </button>
 
-<!-- Logout Button -->
 <button type="button">Logout</button>
 
-<!-- Token Expiry Timer -->
-<!-- <p *ngIf="tokenExpiryTime">Token expires in: {{ tokenExpiryTime }}</p> -->
-
-<!-- Example Output Section -->
 <div>
     <h3>Selected Preferences</h3>
     <p>Primary Language: NEED TO IMPLEMENT</p>
