@@ -3,27 +3,6 @@ import { Observable, throwError, catchError } from 'rxjs';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { environment } from '../../../environments/environment';
 
-
-//apiKey = 'ec38857dd7a49d6164ba60cc0c06e45d';
-
-export interface SubtitleTranslationResponse {
-  message: {
-    header: {
-      status_code: number;
-      execute_time: number;
-      instrumental: number
-    };
-    body: {
-      subtitle: {
-        subtitle_id: string;
-        restricted: number;
-        published_status: number;
-        subtitle_body: string
-      };
-    };
-  };
-}
-
 @Injectable({
   providedIn: 'root',
 })
@@ -33,39 +12,49 @@ export class MusixMatchService {
 
   constructor(private http: HttpClient) {}
 
-  getTrack(trackID: number): Observable<any> {
+  getTrack(track_isrc: string): Observable<any> {
     const url = `${this.baseURL}/track.get`;
   
     const params = new HttpParams()
+      .set('track_isrc', track_isrc) // Ensure this matches the API docs
+      .set('apikey', this.apiKey);
+  
+    return this.http.get<any>(url, { params }).pipe(
+      catchError((error) => {
+        console.error('Error fetching track:', error);
+        return throwError(() => new Error('Failed to fetch track details'));
+      })
+    );
+  }
+
+  getOriginalLyrics(track_isrc: string): Observable<any> {
+    const url = `${this.baseURL}/track.lyrics.get`;
+  
+    const params = new HttpParams()
+      .set('track_isrc', track_isrc) // Ensure this matches the API docs
+      .set('apikey', this.apiKey);
+  
+    return this.http.get<any>(url, { params }).pipe(
+      catchError((error) => {
+        console.error('Error fetching lyrics:', error);
+        return throwError(() => new Error('Failed to fetch lyrics'));
+      })
+    );
+  }
+  
+  getTranslatedLyrics(trackID: number, selectedLanguage: string): Observable<any> {
+    const url = `${this.baseURL}/track.lyrics.translation.get`;
+  
+    const params = new HttpParams()
       .set('track_id', trackID.toString())
+      .set('selected_language', selectedLanguage)
       .set('apikey', this.apiKey);
   
     return this.http.get<any>(url, { params }).pipe(
       catchError(error => {
-        console.error('API Error:', error);
-        return throwError(() => new Error('Failed to fetch track details'));
+        console.error('Error in getLyrics:', error);
+        return throwError(() => new Error('Failed to fetch lyrics'));
       })
     );
   }  
-
-  getTranslatedSubtitle(
-    selectedLanguage: string,
-    commontrackID: number,
-    minCompleted: number = 1
-  ): Observable<SubtitleTranslationResponse> {
-    const url = `${this.baseURL}/track.subtitle.translation.get`;
-
-    const params = new HttpParams()
-      .set('commontrack_id', commontrackID.toString())
-      .set('selected_language', selectedLanguage)
-      .set('min_completed', minCompleted.toString())
-      .set('apikey', this.apiKey);
-
-    return this.http.get<SubtitleTranslationResponse>(url, { params }).pipe(
-      catchError(error => {
-        console.error('API Error:', error);
-        return throwError(() => new Error('Failed to fetch subtitles'));
-      })
-    );
-  }
 }

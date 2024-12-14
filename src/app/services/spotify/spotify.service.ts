@@ -416,7 +416,7 @@ export class SpotifyService {
   }
   
 
-  getUsersTopTracks(): Promise<{ name: string; image: string; artist: string; }[]> {
+  getUsersTopTracks(): Promise<{ name: string; image: string; artist: string; id: string; }[]> {
     if (!this.isLoggedIn()) {
       console.warn("User is not logged in. Redirecting to login.");
       this.getAccessToken();
@@ -427,9 +427,10 @@ export class SpotifyService {
       .getMyTopTracks({ limit: 6 })
       .then((response) =>
         response.items.map((item) => ({
-          name: item.name, // Track name
+          name: item.name,
           image: item.album.images?.[0]?.url || "",
           artist: item.artists ?.[0]?.name || "Unknown", 
+          id: item.external_ids.isrc || "",
         }))
       )
       .catch((error) => {

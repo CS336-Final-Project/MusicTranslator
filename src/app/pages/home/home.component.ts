@@ -24,7 +24,7 @@ import { ArtistCardComponent } from "../../components/artist-card/artist-card.co
 export class HomeComponent implements OnInit {
   user: { display_name: string; image: string } | null = null;
   usersTopArtists: Array<{ name: string; image: string, genre: string }> = []; // Updated type
-  usersTopTracks: Array<{ name: string; image: string, artist: string}> = [];
+  usersTopTracks: Array<{ name: string; image: string, artist: string, id: string}> = [];
   usersRecentlyPlayedTracks: Array<string> = [];
   errorMessage: string = "";
 

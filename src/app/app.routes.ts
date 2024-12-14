@@ -16,7 +16,7 @@ export const routes: Routes = [
     {path: '', component: HomeComponent, canActivate: [AuthGuard]},
     {path: 'browse', component: BrowseComponent, canActivate: [AuthGuard]},
     {path: 'listen', component: ListenComponent, canActivate: [AuthGuard]},
-    {path: 'listen/:trackOrArtist', component: ListenComponent, canActivate: [AuthGuard]},
+    {path: 'listen/:trackID', component: ListenComponent, canActivate: [AuthGuard]},
     {path: 'artists/:artist', component: ArtistPageComponent, canActivate: [AuthGuard]},
     {path: 'profile', component: ProfileComponent, canActivate: [AuthGuard]},
     {path: 'search', component: SearchComponent, canActivate: [AuthGuard]},

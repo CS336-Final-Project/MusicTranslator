@@ -1,34 +1,44 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable } from 'rxjs';
-
+import { from, Observable, throwError } from 'rxjs';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
+import { catchError, map } from 'rxjs/operators';
+import { environment } from '../../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class GeniusService {
+  private readonly baseURL = 'https://api.genius.com';
+  private readonly accessToken = environment.geniusAccessToken;
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
 
-  // getLyrics(songTitle: string, artistName: string): Observable<string> {
-  //   return new Observable(observer => {
-  //     getLyrics({
-  //       apiKey: '15fw3vOtPRzfgU4PTOPfPpYuVUik1Sr6n8TUKukoKhdB4tunSkx4TdTqqB2N-aNK', // Replace with your actual API key
-  //       title: 'La Patrulla',
-  //       artist: 'Peso Pluma'
-  //     }).then(lyrics => {
-  //       observer.next(lyrics);
-  //       observer.complete();
-  //     }).catch(error => {
-  //       observer.error(error);
-  //     });
-  //   });
-  // }
+  getSearchResults(query: string): Observable<any> {
+    const url = `${this.baseURL}/search`;
+
+    const params = new HttpParams()
+     .set('q', query)
+     .set('access_token', this.accessToken)
+
+    return this.http.get<any>(url, { params }).pipe(
+      catchError(error => {
+        console.error('Error fetching search results:', error);
+        return throwError(() => new Error('Failed to fetch search results from Genius API'));
+      })
+    );
+  }
+
+  getSongDetails(songID: number): Observable<any> {
+    const url = `${this.baseURL}/songs/${songID}`;
+
+    const params = new HttpParams()
+     .set('access_token', this.accessToken);
+
+    return this.http.get<any>(url, { params }).pipe(
+      catchError(error => {
+        console.error('Error fetching song details:', error);
+        return throwError(() => new Error('Failed to fetch song details from Genius API'));
+      })
+    );
+  }
 }
-
-
-// private readonly baseURL = 'https://api.genius.com'
-  // private readonly accessToken = '15fw3vOtPRzfgU4PTOPfPpYuVUik1Sr6n8TUKukoKhdB4tunSkx4TdTqqB2N-aNK'
-  //Client ID: hS-BNb4UEPegTyB7DaxYY9KtRBDcir2293Wr0CXMCL6Iyx5Zpzsrn6DpnYbhEG3Y
-  //Client Secret: RY9ZrDio7sQtgBs24MfQFLorZP-lHmq-oorJnGxtriHW2fHTgjMYydQCxlQgVKPSaRkeMZg-dHp0abQzRMQ0vQ
-  //Client Access Token: 15fw3vOtPRzfgU4PTOPfPpYuVUik1Sr6n8TUKukoKhdB4tunSkx4TdTqqB2N-aNK
