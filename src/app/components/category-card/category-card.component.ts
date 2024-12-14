@@ -9,7 +9,7 @@ import { RouterLink } from '@angular/router';
   styleUrl: './category-card.component.css'
 })
 export class CategoryCardComponent {
-  categoryImage = input.required<string>();
   category = input.required<string>();
-  playlistName = input.required<string>();
+  playlistID = input.required<string>();
+  backgroundColor = input.required<string>();
 }

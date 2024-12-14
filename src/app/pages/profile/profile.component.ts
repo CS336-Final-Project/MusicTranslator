@@ -21,7 +21,7 @@ import { SpotifyService } from '../../services/spotify/spotify.service';
   styleUrl: './profile.component.css'
 })
 export class ProfileComponent implements OnInit {
-  user: { display_name: string; image: string} | null = null;
+  user: { display_name: string; image: string; email: string; id: string} | null = null;
   errorMessage: string = "";
   isTokenRefreshing: boolean = false;
 

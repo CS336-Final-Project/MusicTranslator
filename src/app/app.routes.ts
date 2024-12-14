@@ -20,7 +20,7 @@ export const routes: Routes = [
     {path: 'artists/:artistID', component: ArtistPageComponent, canActivate: [authguardGuard]},
     {path: 'profile', component: ProfileComponent, canActivate: [authguardGuard]},
     {path: 'search', component: SearchComponent, canActivate: [authguardGuard]},
-    {path: 'category/:language', component: CategoryComponent, canActivate: [authguardGuard]},
+    {path: 'category/:playlistID', component: CategoryComponent, canActivate: [authguardGuard]},
 
     {path: '**', redirectTo:'login'},
 ];

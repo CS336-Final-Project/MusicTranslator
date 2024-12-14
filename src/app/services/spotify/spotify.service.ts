@@ -185,7 +185,14 @@ export class SpotifyService {
       });
   }
   //Get Artist Top Tracks
-  getArtistTopTracks(artistID: string, options?: object): Promise<{ name: string; id: string; image: string, isrc: string }[]> {
+  getArtistTopTracks(artistID: string, options?: object): Promise<{ 
+    name: string; 
+    id: string; 
+    image: string; 
+    isrc: string; 
+    album: string; 
+    popularity: number; 
+  }[]> {
     if (!this.isLoggedIn()) {
       console.warn("User is not logged in. Redirecting to login.");
       this.getAccessToken();
@@ -200,19 +207,21 @@ export class SpotifyService {
         if (!response || !response.tracks) {
           throw new Error("No top tracks found for the artist");
         }
-        console.log(response);
+  
         return response.tracks.map((item) => ({
           name: item.name || "Unknown Track",
           id: item.id,
           isrc: item.external_ids?.isrc || "N/A",
-          image: item.album.images[0].url || "N/A",
+          image: item.album.images[0]?.url || "N/A",
+          album: item.album.name || "Unknown Album",
+          popularity: item.popularity,
         }));
       })
       .catch((error) => {
         console.error("Error fetching artist top tracks:", error);
         return Promise.reject(error);
       });
-  }
+  }  
 
   getArtist(artistID: string, options?: object): Promise<string> {
     if (!this.isLoggedIn()) {
@@ -314,28 +323,40 @@ export class SpotifyService {
   }
 
   // Playlist
-  getPlaylist(playlistID: string, options?: object): Promise<{ name: string; genre: string }[]> {
+  getPlaylist(
+    playlistID: string,
+    options?: object
+  ): Promise<{ name: string; id: string; tracks: object }[]> {
     if (!this.isLoggedIn()) {
       console.warn("User is not logged in. Redirecting to login.");
       this.getAccessToken();
-      return Promise.reject("User not logged in");
+      return Promise.reject(new Error("User is not logged in"));
     }
   
     return this.spotifyWebApi.getPlaylist(playlistID, options)
-      .then((response) => response?.tracks?.items?.map((track) => ({
-        name: track?.track?.name || "Unknown",
-        // image: track?.track?.playlist?.images?.[0]?.url || "",
-        genre: "Unknown", // Replace with a valid genre property if available
-      })) || [])
+      .then((response) => {
+        if (!response || !response.tracks || !response.tracks.items) {
+          console.warn("Invalid response structure");
+          return [];
+        }
+  
+        return response.tracks.items.map((item) => {
+          const track = item.track;
+          return {
+            name: track?.name || "Unknown",
+            id: track?.id || "Unknown ID",
+            tracks: track || {}
+          };
+        });
+      })
       .catch((error) => {
         console.error("Error fetching playlist data:", error.message || error);
         return [];
       });
   }
-
-
-
-
+  
+  
+  
 
   /*Player*/
   playTrack(options: { uris: string[]; position_ms?: number }): Promise<void> {
@@ -391,7 +412,7 @@ export class SpotifyService {
   getSearchRequest(
     query: string,
     options?: Record<string, any>
-  ): Promise<{ type: string; name: string; image: string; artist: string; trackID: string, isrc: string }[]> {
+  ): Promise<{ type: string; name: string; image: string; artist: string; trackID: string; isrc: string }[]> {
     if (!this.isLoggedIn()) {
       console.warn("User is not logged in. Redirecting to login.");
       this.getAccessToken();
@@ -488,7 +509,7 @@ export class SpotifyService {
   }
 
   /*User Info*/
-  getUser(): Promise<{ display_name: string; image: string } | string> {
+  getUser(): Promise<{ display_name: string; image: string; email: string; id: string } | string> {
     if (!this.isLoggedIn()) {
       console.warn("User is not logged in. Redirecting to login.");
       this.getAccessToken();
@@ -509,7 +530,9 @@ export class SpotifyService {
       .then((response: any) => {
         const displayName = response.display_name || "Unknown User";
         const image = response.images?.[0]?.url || "";
-        return { display_name: displayName, image };
+        const email = response.email || "";
+        const id = response.id || "";
+        return { display_name: displayName, image, email, id };
       })
       .catch((error: any) => {
         console.error("Error fetching user information:", error);

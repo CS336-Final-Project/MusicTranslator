@@ -1,5 +1,5 @@
 import { Component, Output, EventEmitter } from "@angular/core";
-import { Router } from "@angular/router";
+import { Router, RouterLink } from "@angular/router";
 import { FormsModule } from "@angular/forms";
 import { SpotifyService } from "../../services/spotify/spotify.service";
 import { MatToolbarModule } from "@angular/material/toolbar";
@@ -8,7 +8,7 @@ import { CommonModule } from "@angular/common";
 @Component({
   selector: "app-search-bar",
   standalone: true,
-  imports: [FormsModule, MatToolbarModule, CommonModule],
+  imports: [FormsModule, MatToolbarModule, CommonModule, RouterLink],
   templateUrl: "./search-bar.component.html",
   styleUrl: "./search-bar.component.css",
   providers: [SpotifyService],

@@ -1,6 +1,6 @@
 import {
   __commonJS
-} from "./chunk-K4KU7J5H.js";
+} from "./chunk-425Y3D7U.js";
 
 // node_modules/spotify-web-api-js/src/spotify-web-api.js
 var require_spotify_web_api = __commonJS({
