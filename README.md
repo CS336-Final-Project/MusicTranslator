@@ -11,5 +11,8 @@ This application leverages Angular Material's design principles to ensure a visu
 
 View this project's details [here](https://github.com/CS336-Final-Project/musicTranslator-project)
 
+# Final Presentation
+[View Presentation](https://docs.google.com/presentation/d/1cqSLBIkU1_qW4KZidC6KtROA3ameUfdI6C5NNzK8_yY/edit#slide=id.g323fdc12991_0_569)
+
 # How to view application
-[View Site](https://tunelingual.web.app/)
+[Application Link](https://tunelingual.web.app/)
