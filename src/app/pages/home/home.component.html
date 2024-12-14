@@ -8,7 +8,8 @@
           [trackID]="tracks.id"
           [trackName]="tracks.name"
           [trackImage]="tracks.image"
-          [trackArtist]="tracks.artist">
+          [trackArtist]="tracks.artist"
+          [isrc]="tracks.isrc">
         </app-music-card>
       </div>
     }
@@ -24,7 +25,8 @@
         <app-artist-card
           [artistName]="artist.name"
           [artistImage]="artist.image"
-          [artistGenre]="artist.genre">
+          [artistGenre]="artist.genre"
+          [artistID]="artist.id">
         </app-artist-card>
       </div>
     }

@@ -1,2 +1,6 @@
-<h1>Welcome to [enter app name]!</h1>
-<button (click)="loginToSpotify()">Login with spotify</button>
+<h1>Welcome to TuneLingual!</h1>
+<p>Login with your Spotify account to get started.</p>
+<button (click)="loginToSpotify()">Login with Spotify</button>
+@if (errorMessage) {
+    <p class="error">{{ errorMessage }}</p>
+}

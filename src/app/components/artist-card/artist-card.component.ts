@@ -13,4 +13,5 @@ export class ArtistCardComponent {
   artistImage = input.required<string>();
   artistName = input.required<string>();
   artistGenre = input.required<string>();
+  artistID = input.required<string>();
 }

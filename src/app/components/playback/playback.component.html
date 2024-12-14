@@ -1,6 +1,6 @@
 <mat-toolbar class="playback-toolbar">
     <div class="songPlaying">
-        <p class="track-info">Current Playing Track: NEED TO REPLACE</p>
+        <p class="track-info">Currently Playing: {{currentTrack}}</p>
     </div>
     <div class="middle">
         <div class="playbackButtons">
@@ -8,16 +8,11 @@
             <button><mat-icon aria-hidden="false" fontIcon="play_circle" class="play-button"></mat-icon></button>
             <button><mat-icon aria-hidden="false" fontIcon="pause_circle" class="pause-button" style="display: none;"></mat-icon></button>
             <button><mat-icon aria-hidden="false" fontIcon="forward_10"></mat-icon></button>
-            <div class="trackTime">
-                <mat-slider id="timeSlider" class="slider">
-                    <input matSliderThumb>
-                </mat-slider>
-            </div>
         </div>
     </div>
     <div class="volume">
-        <mat-slider id="volumeSlider" class="slider">
+    <!-- <mat-slider id="volumeSlider" class="slider">
         <input matSliderThumb>
-    </mat-slider>
+    </mat-slider> -->
     </div>
 </mat-toolbar>

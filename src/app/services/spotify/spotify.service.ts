@@ -1,6 +1,17 @@
 import { Injectable, Inject, PLATFORM_ID } from "@angular/core";
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
+import { Observable, throwError } from 'rxjs';
+import { catchError ,tap } from 'rxjs/operators';
 import { isPlatformBrowser } from "@angular/common";
+import { Router } from '@angular/router';
 import SpotifyWebApi from "spotify-web-api-js";
+
+interface TokenResponse {
+  access_token: string;
+  token_type: string;
+  expires_in: number;
+  refresh_token?: string;
+}
 
 @Injectable({
   providedIn: "root",
@@ -9,29 +20,31 @@ export class SpotifyService {
   spotifyWebApi: SpotifyWebApi.SpotifyWebApiJs;
   private isBrowser: boolean;
 
-  constructor(@Inject(PLATFORM_ID) private platformId: Object) {
+  constructor(@Inject(PLATFORM_ID) private platformId: Object, private http: HttpClient, private router: Router) {
     this.spotifyWebApi = new SpotifyWebApi();
     this.isBrowser = isPlatformBrowser(this.platformId);
 
-    if (this.isBrowser) {
-      const hash = window.location.hash.substring(1);
-      const params = new URLSearchParams(hash);
-      const accessToken = params.get("access_token");
+    this.initializeAccessToken();
+  }
 
-      if (accessToken) {
-        this.spotifyWebApi.setAccessToken(accessToken);
-        localStorage.setItem("spotify_access_token", accessToken);
-        window.history.replaceState(null, "", window.location.pathname);
-      } else {
-        const storedToken = localStorage.getItem("spotify_access_token");
-        if (storedToken) {
-          this.spotifyWebApi.setAccessToken(storedToken);
-        } else {
-          console.warn(
-            "No access token found in URL or local storage. User may need to log in."
-          );
-        }
-      }
+  private initializeAccessToken(): void {
+    if (!this.isBrowser) return;
+
+    const hash = window.location.hash.substring(1);
+    const params = new URLSearchParams(hash);
+    const accessToken = params.get("access_token");
+    const expiresIn = params.get("expires_in");
+
+    if (accessToken) {
+      // Set expiration time (optional, but recommended)
+      const expirationTime = new Date().getTime() + parseInt(expiresIn || '3600') * 1000;
+      
+      this.spotifyWebApi.setAccessToken(accessToken);
+      localStorage.setItem("spotify_access_token", accessToken);
+      localStorage.setItem("spotify_token_expiration", expirationTime.toString());
+      
+      // Clear the hash from the URL
+      window.history.replaceState(null, "", window.location.pathname);
     }
   }
 
@@ -50,13 +63,10 @@ export class SpotifyService {
       "user-top-read",
       "user-follow-read",
       "user-follow-modify",
-
       "user-read-playback-state",
       "user-read-currently-playing",
       "user-modify-playback-state",
       "user-read-recently-played",
-      "user-read-currently-playing",
-
       "playlist-read-private",
       "playlist-read-collaborative",
       "playlist-modify-public",
@@ -72,12 +82,89 @@ export class SpotifyService {
   }
 
   isLoggedIn(): boolean {
-    if (!this.isBrowser) {
-      return false;
-    }
+    if (!this.isBrowser) return false;
+
     const token = localStorage.getItem("spotify_access_token");
-    return !!token;
+    const expirationTime = localStorage.getItem("spotify_token_expiration");
+
+    // Check if token exists and is not expired
+    return !!(token && (!expirationTime || new Date().getTime() < parseInt(expirationTime)));
   }
+
+  private getLocalStorageItem(key: string): string | null {
+    try {
+      return isPlatformBrowser(this.platformId) && typeof localStorage !== 'undefined' 
+        ? localStorage.getItem(key) 
+        : null;
+    } catch {
+      return null;
+    }
+  }
+
+  // Safe method to set localStorage item
+  private setLocalStorageItem(key: string, value: string): void {
+    try {
+      if (isPlatformBrowser(this.platformId) && typeof localStorage !== 'undefined') {
+        localStorage.setItem(key, value);
+      }
+    } catch {}
+  }
+
+  // Safe method to remove localStorage item
+  private removeLocalStorageItem(key: string): void {
+    try {
+      if (isPlatformBrowser(this.platformId) && typeof localStorage !== 'undefined') {
+        localStorage.removeItem(key);
+      }
+    } catch {}
+  }
+
+  refreshAccessToken(): Observable<TokenResponse> {
+    const refreshToken = this.getLocalStorageItem('refresh_token');
+    const accessToken = this.getLocalStorageItem('access_token');
+    
+    // If no refresh token or access token, force re-login
+    if (!refreshToken || !accessToken) {
+      this.logout();
+      this.router.navigate(['/login']);
+      return throwError(() => new Error('No valid tokens available. Please log in again.'));
+    }
+
+    const body = new HttpParams()
+      .set('grant_type', 'refresh_token')
+      .set('refresh_token', refreshToken)
+      .set('client_id', 'eb64fd7b14bb4b68992e0cf779a78070');
+
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/x-www-form-urlencoded'
+    });
+
+    return this.http.post<TokenResponse>('https://accounts.spotify.com/api/token', body.toString(), { headers }).pipe(
+      tap((response: TokenResponse) => {
+        // Update access token in local storage
+        this.setLocalStorageItem('access_token', response.access_token);
+        
+        // If a new refresh token is provided, update it
+        if (response.refresh_token) {
+          this.setLocalStorageItem('refresh_token', response.refresh_token);
+        }
+      }),
+      catchError((error) => {
+        // If token refresh fails, logout and redirect to login
+        this.logout();
+        this.router.navigate(['/login']);
+        return throwError(() => new Error('Failed to refresh token. Please log in again.'));
+      })
+    );
+  }
+
+  logout() {
+    // Clear all authentication-related items from local storage
+    this.removeLocalStorageItem('access_token');
+    this.removeLocalStorageItem('refresh_token');
+    // Any additional logout logic
+  }
+  
   /*Album Info*/
   //Get Album
   getAlbum(albumId: string, options?: object): Promise<string> {
@@ -97,7 +184,48 @@ export class SpotifyService {
         return Promise.reject("Error fetching album");
       });
   }
-  //Get Several Albums
+  //Get Artist Top Tracks
+  getArtistTopTracks(artistID: string, options?: object): Promise<{ name: string; id: string; image: string, isrc: string }[]> {
+    if (!this.isLoggedIn()) {
+      console.warn("User is not logged in. Redirecting to login.");
+      this.getAccessToken();
+      return Promise.reject("User not logged in");
+    }
+  
+    const region = (options as { region?: string })?.region || "US";
+  
+    return this.spotifyWebApi
+      .getArtistTopTracks(artistID, region)
+      .then((response) => {
+        if (!response || !response.tracks) {
+          throw new Error("No top tracks found for the artist");
+        }
+        console.log(response);
+        return response.tracks.map((item) => ({
+          name: item.name || "Unknown Track",
+          id: item.id,
+          isrc: item.external_ids?.isrc || "N/A",
+          image: item.album.images[0].url || "N/A",
+        }));
+      })
+      .catch((error) => {
+        console.error("Error fetching artist top tracks:", error);
+        return Promise.reject(error);
+      });
+  }
+
+  getArtist(artistID: string, options?: object): Promise<string> {
+    if (!this.isLoggedIn()) {
+      console.warn("User is not logged in. Redirecting to login.");
+      this.getAccessToken();
+      return Promise.reject("User not logged in");
+    }
+
+    return this.spotifyWebApi
+     .getArtist(artistID, options)
+     .then((response) => {return response.name});
+  }
+  
 
   //Get Album Tracks
   getAlbumTracks(albumId: string, options?: object): Promise<string[]> {
@@ -155,7 +283,6 @@ export class SpotifyService {
       })
       .catch((error: any) => {
         console.error("Error adding album to users music library:", error);
-        //this.handleTokenError(error); // Handle token expiration or other issues
         throw error;
       });
   }
@@ -206,90 +333,95 @@ export class SpotifyService {
       });
   }
 
+
+
+
+
   /*Player*/
-  playTrack(options: {uris: string[]}): Promise<void> {
+  playTrack(options: { uris: string[]; position_ms?: number }): Promise<void> {
     if (!this.isLoggedIn()) {
       console.warn("User is not logged in. Redirecting to login.");
       this.getAccessToken();
       return Promise.reject("User not logged in");
     }
+  
     return this.spotifyWebApi
-    .play(options)
-    .then(() => {
-      console.log("Playback started successfully");
-    })
-    .catch((error) => {
-      console.error("Error starting playback:", error);
-      throw error; // Propagate the error for further handling if needed
-    });
+      .play(options)
+      .then(() => {
+        console.log("Playback started successfully");
+      })
+      .catch((error) => {
+        console.error("Error starting playback:", error);
+        throw error; // Propagate the error for further handling if needed
+      });
+  }  
 
-  }
+  getCurrentPlayingTrack(options?: object): Promise<any> {
+    if (!this.isLoggedIn()) {
+      console.warn("User is not logged in. Redirecting to login.");
+      this.getAccessToken();
+      return Promise.reject("User not logged in");
+    }
+  
+    return this.spotifyWebApi
+      .getMyCurrentPlayingTrack(options)
+      .then((response) => {
+        if (!response || !response.item) {
+          return Promise.reject("No track currently playing");
+        }
+  
+        const item = response.item;
+        return {
+          name: item.name || "Unknown",
+          image: item.album?.images?.[0]?.url || "",
+          artist: item.artists?.[0]?.name || "Unknown",
+          id: item.external_ids?.isrc || "",
+        };
+      })
+      .catch((error) => {
+        console.error("Error fetching current playing track:", error);
+        return Promise.reject(error);
+      });
+  }  
+
+
+
 
   /*Search*/
   getSearchRequest(
     query: string,
-    options?: object
-  ): Promise<{ type: string; name: string }[]> {
+    options?: Record<string, any>
+  ): Promise<{ type: string; name: string; image: string; artist: string; trackID: string, isrc: string }[]> {
     if (!this.isLoggedIn()) {
       console.warn("User is not logged in. Redirecting to login.");
       this.getAccessToken();
-      return Promise.reject("User not logged in");
+      return Promise.reject(new Error("User not logged in"));
     }
-
+  
     return this.spotifyWebApi
-      .search(query, ["album", "artist", "playlist", "track"], options)
+      .search(query, ["track"], options)
       .then((response: any) => {
-        const results: { type: string; name: string }[] = [];
-
-        // Process 'artist' results
-        const artists = response["artists"]?.items || [];
-        artists.forEach((artist: any) => {
-          if (artist?.name) {
-            results.push({ type: "artist", name: artist.name });
-          }
-        });
-
-        // Process 'track' results
-        const tracks = response["tracks"]?.items || [];
-        tracks.forEach((track: any) => {
-          const trackName = track?.name || "Unknown Track";
-          const artistName = track?.artists?.[0]?.name || "Unknown Artist";
-          results.push({
-            type: "track",
-            name: `${trackName} by ${artistName}`,
-          });
-        });
-
-        // Process 'album' results
-        const albums = response["albums"]?.items || [];
-        albums.forEach((album: any) => {
-          const albumName = album?.name || "Unknown Album";
-          const artistName = album?.artists?.[0]?.name || "Unknown Artist";
-          results.push({
-            type: "album",
-            name: `${albumName} by ${artistName}`,
-          });
-        });
-
-        // Process 'playlist' results
-        const playlists = response["playlists"]?.items || [];
-        playlists.forEach((playlist: any) => {
-          if (playlist?.name) {
-            results.push({
-              type: "playlist",
-              name: `${playlist.name} (Playlist)`,
-            });
-          }
-        });
-
-        // Limit results to 10 and return
+        const tracks = response?.tracks?.items || [];
+  
+        // Map and transform the tracks into the desired result format
+        const results = tracks.map((track: any) => ({
+          type: "track",
+          name: track?.name || "Unknown Track",
+          image: track?.album?.images?.[0]?.url || "",
+          artist: track?.artists?.[0]?.name || "Unknown Artist",
+          trackID: track?.id || "",
+          isrc: track?.external_ids?.isrc || "",
+        }));
+  
+        // Return only the first 10 results
         return results.slice(0, 10);
       })
       .catch((error) => {
-        console.error("Error fetching search results:", error);
-        return Promise.reject("Error fetching search results");
+        console.error("Error fetching search results:", error.message || error);
+        return Promise.reject(new Error("Failed to fetch search results. Please try again."));
       });
   }
+  
 
   /*Tracks*/
   getUsersSavedTracks(): Promise<string[]> {
@@ -326,7 +458,6 @@ export class SpotifyService {
       })
       .catch((error: any) => {
         console.error("Error adding tracks to saved tracks:", error);
-        //this.handleTokenError(error); // Handle token expiration or other issues
         throw error;
       });
   }
@@ -352,7 +483,6 @@ export class SpotifyService {
       })
       .catch((error: any) => {
         console.error("Error removing tracks from saved tracks:", error);
-        //this.handleTokenError(error); // Handle token expiration or other issues
         throw error;
       });
   }
@@ -377,9 +507,8 @@ export class SpotifyService {
     return this.spotifyWebApi
       .getMe()
       .then((response: any) => {
-        // Ensure response has required fields
         const displayName = response.display_name || "Unknown User";
-        const image = response.images?.[0]?.url || ""; // Handle case where images may be undefined
+        const image = response.images?.[0]?.url || "";
         return { display_name: displayName, image };
       })
       .catch((error: any) => {
@@ -393,7 +522,7 @@ export class SpotifyService {
   }
   
 
-  getUsersTopArtists(): Promise<{ name: string; image: string; genre: string; }[]> {
+  getUsersTopArtists(): Promise<{ name: string; image: string; genre: string; id: string; }[]> {
     if (!this.isLoggedIn()) {
       console.warn("User is not logged in. Redirecting to login.");
       this.getAccessToken();
@@ -407,6 +536,7 @@ export class SpotifyService {
           name: item.name,
           image: item.images?.[0]?.url || "",
           genre: item.genres?.[0] || "Unknown",
+          id: item.id
         }))
       )
       .catch((error) => {
@@ -416,7 +546,7 @@ export class SpotifyService {
   }
   
 
-  getUsersTopTracks(): Promise<{ name: string; image: string; artist: string; id: string; }[]> {
+  getUsersTopTracks(): Promise<{ name: string; image: string; artist: string; id: string; isrc: string }[]> {
     if (!this.isLoggedIn()) {
       console.warn("User is not logged in. Redirecting to login.");
       this.getAccessToken();
@@ -430,7 +560,9 @@ export class SpotifyService {
           name: item.name,
           image: item.album.images?.[0]?.url || "",
           artist: item.artists ?.[0]?.name || "Unknown", 
-          id: item.external_ids.isrc || "",
+          id: item.id,
+          isrc: item.external_ids.isrc || ""
+          //id: item.external_ids.isrc || "",
         }))
       )
       .catch((error) => {

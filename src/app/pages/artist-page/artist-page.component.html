@@ -1,1 +1,9 @@
-<p>{{ topTracks }}</p>
+<h1>{{artistName}}'s Top Tracks</h1>
+@for (tracks of artistTopTracks; track $index) {
+    <app-music-card
+    [trackImage]="tracks.image"
+    [trackName]="tracks.name"
+    [trackArtist]="''"
+    [trackID]="tracks.id"
+    [isrc]="tracks.isrc"></app-music-card>
+}

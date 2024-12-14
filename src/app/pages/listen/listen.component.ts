@@ -4,9 +4,9 @@ import { ActivatedRoute } from '@angular/router';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatIconModule } from '@angular/material/icon';
 import { CommonModule } from '@angular/common';
+import { SpotifyService } from '../../services/spotify/spotify.service';
 import { MusixMatchService } from '../../services/musixmatch/musixmatch.service';
 import { GeniusService } from '../../services/genius/genius.service';
-import { TranslateService } from '../../services/translate/translate.service';
 
 // interface translationSong {
 //   api_path: string;
@@ -33,45 +33,33 @@ export class ListenComponent implements OnInit {
   trackName: string = 'Loading track name...';
   trackArtist: string = 'Loading track artist...';
 
-  trackID: string = '';
-
-  //Spotify Variables
-  songtrackID: number = 0;
-
-  //Genius Variables
-  // originalLyricsURL: string = '';
-  // originalLyricsURLID: number = 0;
-  // translatedLyricsURL: string[] = [];
-  // error: string = '';
+  trackIDForPlay: string = '';
+  trackIDForLyrics: string = '';
 
   constructor(
+    private spotifyService: SpotifyService,
     private musixmatchService: MusixMatchService,
     private geniusService: GeniusService,
-    private translateService: TranslateService,
     private route: ActivatedRoute,
   ) {}
 
   ngOnInit(): void {
-    //spotify service
 
-    // Getting song info
+    //spotify service
     this.route.paramMap.subscribe(params => {
-      this.trackID = params.get('trackID') || '';
-      console.log("Track ID from artist card:", this.trackID);
+      this.trackIDForPlay = params.get('trackID') || '';
+      this.trackIDForLyrics = params.get('isrc') || '';
+
+      if (this.trackIDForPlay && this.trackIDForLyrics && this.spotifyService.isLoggedIn()) {
+        this.playTrack(this.trackIDForPlay);
+      } else {
+        console.warn("Track ID missing or user not logged in");
+      }
     })
 
     //MusixMatch Service
-    // const commontrackID = 287164945;
-    // const selectedLanguage = 'it';
-    this.fetchLyrics(this.trackID);
-    this.fetchTrackDetails(this.trackID);
-    // this.fetchTranslatedLyrics(commontrackID, selectedLanguage);
-
-
-    // const songID = 378195;
-    // this.fetchSongDetails(songID);
-    // const query = 'Peso Pluma'
-    // this.fetchSearchResults(query);
+    this.fetchLyrics(this.trackIDForLyrics);
+    this.fetchTrackDetails(this.trackIDForLyrics);
   }
 
   fetchLyrics(track_isrc: string): void {
@@ -98,28 +86,28 @@ export class ListenComponent implements OnInit {
   }
 
   // DO NOT HAVE ACCESS TO THIS SERVICE
-  fetchTranslatedLyrics(commontrackID: number, selectedLanguage: string): void {
-    this.isLoading = true;
-    console.log('Fetching lyrics with:', { commontrackID, selectedLanguage });
-    this.musixmatchService.getTranslatedLyrics(commontrackID, selectedLanguage).subscribe({
-      next: (response) => {
-        console.log('Translated Lyrics API Response:', response);
-        const lyrics = response?.message?.body?.lyrics;
-        if (lyrics) {
-          this.translatedLyrics = `Translated Lyrics: ${lyrics.lyrics_body}`;
-        } else {
-          this.translatedLyrics = 'No lyrics found';
-        }
-        this.isLoading = false;
-        console.log(this.translatedLyrics);
-      },
-      error: (err) => {
-        this.errorMessage = err.message || 'An error occurred';
-        console.error('Error fetching lyrics:', err);
-        this.isLoading = false;
-      }
-    });
-  }
+  // fetchTranslatedLyrics(commontrackID: number, selectedLanguage: string): void {
+  //   this.isLoading = true;
+  //   console.log('Fetching lyrics with:', { commontrackID, selectedLanguage });
+  //   this.musixmatchService.getTranslatedLyrics(commontrackID, selectedLanguage).subscribe({
+  //     next: (response) => {
+  //       console.log('Translated Lyrics API Response:', response);
+  //       const lyrics = response?.message?.body?.lyrics;
+  //       if (lyrics) {
+  //         this.translatedLyrics = `Translated Lyrics: ${lyrics.lyrics_body}`;
+  //       } else {
+  //         this.translatedLyrics = 'No lyrics found';
+  //       }
+  //       this.isLoading = false;
+  //       console.log(this.translatedLyrics);
+  //     },
+  //     error: (err) => {
+  //       this.errorMessage = err.message || 'An error occurred';
+  //       console.error('Error fetching lyrics:', err);
+  //       this.isLoading = false;
+  //     }
+  //   });
+  // }
   
 
   fetchTrackDetails(track_isrc: string): void {
@@ -140,6 +128,20 @@ export class ListenComponent implements OnInit {
         console.error('Error fetching track details:', err);
       }
     });
+  }
+
+  playTrack(trackID: string): void {
+    const spotifyUri = `spotify:track:${trackID}`; // Construct the Spotify URI
+  
+    this.spotifyService
+      .playTrack({ uris: [spotifyUri] }) // Pass the track URI in the required format
+      .then(() => {
+        console.log(`Playing track: ${trackID}`);
+      })
+      .catch((error) => {
+        console.error("Error playing track:", error);
+        this.errorMessage = "Failed to play the track. Please try again.";
+      });
   }
 }
 

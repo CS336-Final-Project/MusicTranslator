@@ -30,31 +30,20 @@ export class SearchBarComponent {
  
   async sendSearch() {
     if (this.query.trim().length > 0) {
- 
+      // emitting results to export to homr component
+
       if (this.query.trim().length === 0) {
         this.results = [];
-        this.resultsEmitter.emit(this.results);
+        this.resultsEmitter.emit(this.results); // Emit empty results
         return;
       }
- 
-      this.spotifyService
-        .getSearchRequest(this.query)
-        .then((results) => {
-          this.results = results;
-          this.router.navigate(["/search"]),
-            {
-              queryParams: { query: this.query },
-            };
- 
-          console.log("Search results:", results);
-        })
-        .catch((error) => {
-          console.error("Error during search:", error);
-          this.results = [];
-          this.resultsEmitter.emit(this.results);
-        });
+
+      this.router.navigate(["/search"], {
+        queryParams: { query: this.query },
+      });
+      // calling the function in spotifyService.ts
     } else {
-      this.results = [];
+      this.results = []; // Clear results when the query is empty
     }
   }
 

@@ -1,5 +1,9 @@
 <div>
-  <div *ngIf="isLoading">Loading data...</div>
+  @if(isLoading){
+    <div>
+      Loading data...
+    </div>
+  }
 
   @if (!isLoading && trackName && trackArtist){
     <div>

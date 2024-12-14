@@ -1,4 +1,4 @@
-import { Component, input } from '@angular/core';
+import { Component, input, OnInit } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatSliderModule } from '@angular/material/slider';
@@ -12,5 +12,18 @@ import { SpotifyService } from '../../services/spotify/spotify.service';
   styleUrl: './playback.component.css'
 })
 
-export class PlaybackComponent {
+export class PlaybackComponent implements OnInit {
+  currentTrack: string = "";
+
+  constructor(private spotifyService: SpotifyService){}
+
+  ngOnInit(): void {
+    if (this.spotifyService.isLoggedIn()) {
+      this.spotifyService.getCurrentPlayingTrack()
+       .then((currentTrack) => {
+        this.currentTrack = currentTrack.name;
+        console.log(currentTrack)
+       });
+    }
+  }
 }

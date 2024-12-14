@@ -8,6 +8,7 @@
     placeholder="Need music?"
     [(ngModel)]="query"
     (keyup.enter)="sendSearch()"
+    onfocus="this.value=''"
   />
   </div>
   <div class="profile">

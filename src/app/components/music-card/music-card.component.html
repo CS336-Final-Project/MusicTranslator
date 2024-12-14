@@ -1,4 +1,4 @@
-<a [routerLink]="['/listen', trackID()]">
+<a [routerLink]="['/listen', trackID(), isrc()]">
   <mat-card>
     <div class="card-content">
       <img src="{{ trackImage() }}" alt="Album Cover">

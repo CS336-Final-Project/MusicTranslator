@@ -8,19 +8,19 @@ import { LoginComponent } from './pages/login/login.component';
 import { ArtistPageComponent } from './pages/artist-page/artist-page.component';
 import { BrowseComponent } from './pages/browse/browse.component';
 import { CategoryComponent } from './pages/category/category.component';
-import { AuthGuard } from './auth/auth.guard';
+import { authguardGuard } from './auth/authguard.guard';
 
 export const routes: Routes = [
     {path: 'login', component: LoginComponent},
     
-    {path: '', component: HomeComponent, canActivate: [AuthGuard]},
-    {path: 'browse', component: BrowseComponent, canActivate: [AuthGuard]},
-    {path: 'listen', component: ListenComponent, canActivate: [AuthGuard]},
-    {path: 'listen/:trackID', component: ListenComponent, canActivate: [AuthGuard]},
-    {path: 'artists/:artist', component: ArtistPageComponent, canActivate: [AuthGuard]},
-    {path: 'profile', component: ProfileComponent, canActivate: [AuthGuard]},
-    {path: 'search', component: SearchComponent, canActivate: [AuthGuard]},
-    {path: 'category/:language', component: CategoryComponent, canActivate: [AuthGuard]},
+    {path: '', component: HomeComponent, canActivate: [authguardGuard]},
+    {path: 'browse', component: BrowseComponent, canActivate: [authguardGuard]},
+    {path: 'listen', component: ListenComponent, canActivate: [authguardGuard]},
+    {path: 'listen/:trackID/:isrc', component: ListenComponent, canActivate: [authguardGuard]},
+    {path: 'artists/:artistID', component: ArtistPageComponent, canActivate: [authguardGuard]},
+    {path: 'profile', component: ProfileComponent, canActivate: [authguardGuard]},
+    {path: 'search', component: SearchComponent, canActivate: [authguardGuard]},
+    {path: 'category/:language', component: CategoryComponent, canActivate: [authguardGuard]},
 
     {path: '**', redirectTo:'login'},
 ];

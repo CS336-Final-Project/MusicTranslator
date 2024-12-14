@@ -14,4 +14,5 @@ export class MusicCardComponent {
   trackName = input.required<string>();
   trackArtist = input.required<string>();
   trackID = input.required<string>();
+  isrc = input.required<string>();
 }
